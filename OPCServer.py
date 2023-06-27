@@ -10,6 +10,8 @@ class OPCServer:
         # Setup server.
         self.server = Server()
         self.server.set_endpoint(self.endpoint)
+        self.previousMode = 'A'
+        self.previousSetPoint = 0
 
         # Setup Namespace
         self.idx = self.server.register_namespace(self.uri)
@@ -36,14 +38,26 @@ class OPCServer:
     def serverStop(self) -> None:
         self.server.stop()
 
-    def setMode(self, mode) -> None:
-        self.mode.set_value(mode)
+    # Only update the value if the client did't update this value.
+    # Case don't update returns false
+    def setMode(self, mode) -> bool:
+        if (self.previousMode == self.mode.get_value()):
+            self.mode.set_value(mode)
+            return True
+        else:
+            return False
     
     def setTemperature(self, temperature) -> None:
         self.temperature.set_value(temperature)
 
-    def setSetPoint(self, setPoint) -> None:
-        self.setPoint.set_value(setPoint)
+    # Only update the value if the client did't update this value.
+    # Case don't update returns false
+    def setSetPoint(self, setPoint) -> bool:
+        if (self.previousSetPoint == self.setPoint.get_value()):
+            self.setPoint.set_value(setPoint)
+            return True
+        else:
+            return False
         
     def setVoltage(self, voltage) -> None:
         self.voltage.set_value(voltage)
