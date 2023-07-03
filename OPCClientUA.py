@@ -1,29 +1,38 @@
-from opcua import Client
+from asyncua import Client
+import asyncio
 import sys
 import time
 
 sys.path.insert(0, "..")
 
 # Get Server End Point.
-client = Client("opc.tcp://admin@192.168.0.3:4840/freeopcua/server/")
+url = "opc.tcp://192.168.0.3:4840/freeopcua/server/"
+namespace = "Camera Termoeletricamente Controlada"
 
-try:
-    client.connect()
-    root = client.get_root_node()
+async def main():
+    async with Client(url = url) as client:
+        nsidx = await client.get_namespace_index(namespace)
 
-    mode = root.get_child(["0:Objects", "2:Box", "2:Mode"])
-    setPoint = root.get_child(["0:Objects", "2:Box", "2:SetPoint"])
-    temperature = root.get_child(["0:Objects", "2:Box", "2:Temperature"])
-    voltage = root.get_child(["0:Objects", "2:Box", "2:Voltage"])
+        # Get the variable node for read / write
+        mode = await client.nodes.root.get_child(
+            ["0:Objects", f"{nsidx}:Box", f"{nsidx}:Mode"]
+        )
+        setPoint = await client.nodes.root.get_child(
+            ["0:Objects", f"{nsidx}:Box", f"{nsidx}:SetPoint"]
+        )
+        temperature = await client.nodes.root.get_child(
+            ["0:Objects", f"{nsidx}:Box", f"{nsidx}:Temperature"]
+        )
+        voltage = await client.nodes.root.get_child(
+            ["0:Objects", f"{nsidx}:Box", f"{nsidx}:Voltage"]
+        )
 
-    time.sleep(5)
-    print("Mode: " + str(mode.get_value()))
-    mode.set_value(1)
-    time.sleep(5)
-    print("Mode: " + str(mode.get_value()))
-    mode.set_value(0)
-    while (True):
-        time.sleep(2)
-        print("Temperature: " + str(temperature.get_value()))
-finally:
-    client.disconnect()
+        await asyncio.sleep(5)
+        print("Mode: " + str(await mode.read_value()))
+        await mode.write_value(1)
+        await asyncio.sleep(5)
+        print("Mode: " + str(await mode.read_value()))
+        await mode.write_value(0)
+        while (True):
+            await asyncio.sleep(2)
+            print("Temperature: " + str(await temperature.read_value()))
