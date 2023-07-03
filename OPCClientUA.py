@@ -1,7 +1,6 @@
 from asyncua import Client
 import asyncio
 import sys
-import time
 
 sys.path.insert(0, "..")
 
@@ -36,3 +35,5 @@ async def main():
         while (True):
             await asyncio.sleep(2)
             print("Temperature: " + str(await temperature.read_value()))
+
+asyncio.run(main())
