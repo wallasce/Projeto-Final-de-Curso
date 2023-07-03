@@ -1,4 +1,4 @@
-import time
+import asyncio
 import threading
 
 from dataAcquisitionFinal import dataAcquisition
@@ -7,26 +7,23 @@ from OPCServer import OPCServer
 # Global variables.
 global flag
 
-def thOPCServer():
+async def thOPCServer():
     OPCServerUA = OPCServer()
     OPCServerUA.createVariables()
-    OPCServerUA.serverRun()
     
     while (flag):
-        time.sleep(1)
-        OPCServerUA.setMode(dataManager.getLastMode)
-        OPCServerUA.setSetPoint(dataManager.getLastSetPoint)
-        OPCServerUA.setTemperature(dataManager.getLastTemperature)
-        OPCServerUA.setVoltage(dataManager.getLastVoltage)
+        await asyncio.sleep(1)
+        await OPCServerUA.setMode(dataManager.getLastMode)
+        await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)
+        await OPCServerUA.setTemperature(dataManager.getLastTemperature)
+        await OPCServerUA.setVoltage(dataManager.getLastVoltage)
 
-    OPCServerUA.serverStop()
-
-def thDataAcquisition():
+async def thDataAcquisition():
     global dataManager
     dataManager = dataAcquisition()
     
     while (flag):
-        time.sleep(1)
+        await asyncio.sleep(1)
         dataManager.readData()
 
     dataManager.close()
