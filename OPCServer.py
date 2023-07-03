@@ -18,7 +18,7 @@ class OPCServer:
 
     async def createVariables(self) -> None:
         # Populate space.
-        self.box = await self.server.nodes.objects.add_object(idx, "Box")
+        self.box = await self.server.nodes.objects.add_object(self.idx, "Box")
 
         self.mode = await self.box.add_variable(self.idx, "Mode", 'A')
         self.setPoint = await self.box.add_variable(self.idx, "SetPoint", 0)
