@@ -55,3 +55,34 @@ class dataAcquisition:
         value = self.voltage[-1]
         self.mutex.release()
         return value
+    
+    # Send to Arduino to change the Mode.
+    def setMode(self) -> None:
+        # Send a mensage with the standards implemented on Arduino.
+        self.serialConection.write(b'MMF')
+
+    # Remove first decimal place of absolute value.
+    # Returns a String.
+    def removeFirstDecimalPlace(value) -> str:
+        value = int(abs(value) * 10)
+        return str(value)
+
+    def setSetPoint(self, setPoint) -> None:
+        mesage = 'R'
+        mesage = mesage + ('+' if setPoint > 0 else '-')
+        
+        mesage = mesage + self.removeFirstDecimalPlace(setPoint) + 'F'
+
+        mesage = mesage.encode()
+        self.serialConection.write(mesage)
+
+    def setControler(self, kp, ki) -> None:
+        # Initial controler mesage standard.
+        mesage = 'C'
+        mesage = mesage + self.removeFirstDecimalPlace(kp)
+        mesage = mesage + self.removeFirstDecimalPlace(ki)
+        # End controler mesage standard.
+        mesage = 'F'
+
+        mesage = mesage.encode()
+        self.serialConection.write(mesage)
