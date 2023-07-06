@@ -46,14 +46,9 @@ class OPCServer:
     
     # Only update the constants of controler if the client did't update this value.
     # Case don't update returns false.
-    async def setControler(self, ki, kp) -> bool:
-        if (self.previousKi == await self.ki.read_value() and
-             self.previousKP == await self.kp.read_value()):
-            await self.ki.write_value(ki)
-            await self.kp.write_value(kp)
-            return True
-        else:
-            return False
+    async def controlerChange(self, ki, kp) -> bool:
+        return not (self.previousKi == await self.ki.read_value() and
+                self.previousKP == await self.kp.read_value())
 
     # Only update the value if the client did't update this value.
     # Case don't update returns false
