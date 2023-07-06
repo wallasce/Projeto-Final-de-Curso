@@ -29,6 +29,9 @@ class OPCServer:
         await self.mode.set_writable() 
         await self.setPoint.set_writable()
 
+    async def getSetPoint(self) -> float:
+        return await self.setPoint.read_value()
+
     # Only update the value if the client did't update this value.
     # Case don't update returns false
     async def setMode(self, mode) -> bool:
