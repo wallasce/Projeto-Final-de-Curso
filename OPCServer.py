@@ -10,6 +10,10 @@ class OPCServer:
         self.server = Server()
         await self.server.init()
         self.server.set_endpoint(self.endpoint)
+        
+        # Default value from Arduino
+        self.previousKi = 4.5
+        self.previousKp = 1.8
         self.previousMode = 'A'
         self.previousSetPoint = 20
 
@@ -20,17 +24,36 @@ class OPCServer:
         # Populate space.
         self.box = await self.server.nodes.objects.add_object(self.idx, "Box")
 
+        self.ki = await self.box.add_variable(self.idx, "Ki", 4.5)
+        self.kp = await self.box.add_variable(self.idx, "Kp", 1.8)
         self.mode = await self.box.add_variable(self.idx, "Mode", 'A')
         self.setPoint = await self.box.add_variable(self.idx, "SetPoint", 20)
         self.temperature = await self.box.add_variable(self.idx, "Temperature", 0)
         self.voltage = await self.box.add_variable(self.idx, "Voltage", 0)
 
         # Set some variables to be writable by clients.
+        await self.ki.set_writable()
+        await self.kp.set_writable()
         await self.mode.set_writable() 
         await self.setPoint.set_writable()
 
     async def getSetPoint(self) -> float:
         return await self.setPoint.read_value()
+    
+    # Return a tuple with (ki, kp).
+    async def getControler(self) -> tuple:
+        return (await self.ki.read_value(), await self.kp.read_value())
+    
+    # Only update the constants of controler if the client did't update this value.
+    # Case don't update returns false.
+    async def setControler(self, ki, kp) -> bool:
+        if (self.previousKi == await self.ki.read_value() and
+             self.previousKP == await self.kp.read_value()):
+            await self.ki.write_value(ki)
+            await self.kp.write_value(kp)
+            return True
+        else:
+            return False
 
     # Only update the value if the client did't update this value.
     # Case don't update returns false
@@ -55,6 +78,10 @@ class OPCServer:
         
     async def setVoltage(self, voltage) -> None:
         await self.voltage.write_value(voltage)
+
+    async def updatePreviousControler(self) -> None:
+        self.previousKi = await self.ki.read_value()
+        self.previousKp = await self.kp.read_value()
 
     async def updatePreviousModeValue(self) -> None:
         self.previousMode = await self.mode.read_value()
