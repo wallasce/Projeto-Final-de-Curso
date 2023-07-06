@@ -44,8 +44,7 @@ class OPCServer:
     async def getControler(self) -> tuple:
         return (await self.ki.read_value(), await self.kp.read_value())
     
-    # Only update the constants of controler if the client did't update this value.
-    # Case don't update returns false.
+    # Check if client change the Controler value.
     async def controlerChange(self, ki, kp) -> bool:
         return not (self.previousKi == await self.ki.read_value() and
                 self.previousKP == await self.kp.read_value())
