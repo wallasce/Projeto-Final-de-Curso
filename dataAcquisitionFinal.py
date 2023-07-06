@@ -31,13 +31,6 @@ class dataAcquisition:
         self.mutex.release()
 
     # Getters.
-    def getLastControler(self) -> tuple:
-        self.mutex.acquire()
-        ki = 0
-        kp = 0
-        self.mutex.release()
-        return (ki, kp)
-
     def getLastTemperature(self) -> float:
         self.mutex.acquire()
         value = self.temperature[-1]
