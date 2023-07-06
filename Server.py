@@ -13,7 +13,11 @@ async def thOPCServer():
     
     while (flag):
         await asyncio.sleep(1)
-        await OPCServerUA.setMode(dataManager.getLastMode)
+
+        # Try update mode value in OPC server, else update the value in Arduino
+        if not (await OPCServerUA.setMode(dataManager.getLastMode)):
+            dataManager.setMode()
+
         await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)
         await OPCServerUA.setTemperature(dataManager.getLastTemperature)
         await OPCServerUA.setVoltage(dataManager.getLastVoltage)
