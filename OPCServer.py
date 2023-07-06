@@ -11,7 +11,7 @@ class OPCServer:
         await self.server.init()
         self.server.set_endpoint(self.endpoint)
         self.previousMode = 'A'
-        self.previousSetPoint = 0
+        self.previousSetPoint = 20
 
         # Setup Namespace
         self.idx = await self.server.register_namespace(self.uri)
@@ -21,7 +21,7 @@ class OPCServer:
         self.box = await self.server.nodes.objects.add_object(self.idx, "Box")
 
         self.mode = await self.box.add_variable(self.idx, "Mode", 'A')
-        self.setPoint = await self.box.add_variable(self.idx, "SetPoint", 0)
+        self.setPoint = await self.box.add_variable(self.idx, "SetPoint", 20)
         self.temperature = await self.box.add_variable(self.idx, "Temperature", 0)
         self.voltage = await self.box.add_variable(self.idx, "Voltage", 0)
 
