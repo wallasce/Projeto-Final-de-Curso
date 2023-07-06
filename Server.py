@@ -18,7 +18,10 @@ async def thOPCServer():
         if not (await OPCServerUA.setMode(dataManager.getLastMode)):
             dataManager.setMode()
 
-        await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)
+        # Try update SetPoint value in OPC server, else update the value in Arduino
+        if not (await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)):
+            dataManager.setSetPoint(await OPCServerUA.getSetPoint())
+
         await OPCServerUA.setTemperature(dataManager.getLastTemperature)
         await OPCServerUA.setVoltage(dataManager.getLastVoltage)
 
