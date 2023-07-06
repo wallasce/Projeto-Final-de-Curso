@@ -54,6 +54,7 @@ class OPCServer:
     async def setMode(self, mode) -> bool:
         if (self.previousMode == await self.mode.get_value()):
             await self.mode.write_value(mode)
+            self.previousMode = mode
             return True
         else:
             return False
@@ -66,6 +67,7 @@ class OPCServer:
     async def setSetPoint(self, setPoint) -> bool:
         if (self.previousSetPoint == await self.setPoint.get_value()):
             await self.setPoint.write_value(setPoint)
+            self.previousSetPoint = setPoint
             return True
         else:
             return False
