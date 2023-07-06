@@ -55,3 +55,9 @@ class OPCServer:
         
     async def setVoltage(self, voltage) -> None:
         await self.voltage.write_value(voltage)
+
+    async def updatePreviousModeValue(self) -> None:
+        self.previousMode = await self.mode.read_value()
+
+    async def updatePreviousSetPointValue(self) -> None:
+        self.previousSetPoint = await self.setPoint.read_value()
