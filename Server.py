@@ -9,29 +9,31 @@ global flag
 
 async def thOPCServer():
     OPCServerUA = OPCServer()
-    OPCServerUA.createVariables()
+    await OPCServerUA.startServer()
+    await OPCServerUA.createVariables()
     
-    while (flag):
-        await asyncio.sleep(1)
+    async with OPCServerUA.server:
+        while (flag):
+            await asyncio.sleep(1)
 
-        # Try update mode value in OPC server, else update the value in Arduino
-        if not (await OPCServerUA.setMode(dataManager.getLastMode)):
-            dataManager.setMode()
-            await OPCServerUA.updatePreviousModeValue()
+            # Try update mode value in OPC server, else update the value in Arduino
+            if not (await OPCServerUA.setMode(dataManager.getLastMode)):
+                dataManager.setMode()
+                await OPCServerUA.updatePreviousModeValue()
 
-        # Try update SetPoint value in OPC server, else update the value in Arduino
-        if not (await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)):
-            dataManager.setSetPoint(await OPCServerUA.getSetPoint())
-            await OPCServerUA.updatePreviousSetPointValue()
+            # Try update SetPoint value in OPC server, else update the value in Arduino
+            if not (await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)):
+                dataManager.setSetPoint(await OPCServerUA.getSetPoint())
+                await OPCServerUA.updatePreviousSetPointValue()
 
-        await OPCServerUA.setTemperature(dataManager.getLastTemperature)
-        await OPCServerUA.setVoltage(dataManager.getLastVoltage)
+            await OPCServerUA.setTemperature(dataManager.getLastTemperature)
+            await OPCServerUA.setVoltage(dataManager.getLastVoltage)
 
-        # Checks if client update controler values.
-        if (await OPCServerUA.controlerChange()):
-            controler = await OPCServerUA.getControler()
-            dataManager.setControler(controler[0], controler[1])
-            await OPCServerUA.updatePreviousControler()
+            # Checks if client update controler values.
+            if (await OPCServerUA.controlerChange()):
+                controler = await OPCServerUA.getControler()
+                dataManager.setControler(controler[0], controler[1])
+                await OPCServerUA.updatePreviousControler()
 
 async def thDataAcquisition():
     global dataManager

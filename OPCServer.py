@@ -2,20 +2,22 @@ from asyncua import Server, ua
 
 class OPCServer:
     #hostname -I
-    endpoint = "opc.tcp://192.168.0.3:4840/freeopcua/server/"
+    endpoint = "opc.tcp://0.0.0.0:4840/freeopcua/server/"
     uri = "Camera Termoeletricamente Controlada"
 
-    async def __init__(self) -> None:
-        # Setup server.
+    def __init__(self) -> None:
         self.server = Server()
-        await self.server.init()
-        self.server.set_endpoint(self.endpoint)
         
         # Default value from Arduino
         self.previousKi = 4.5
         self.previousKp = 1.8
         self.previousMode = 'A'
         self.previousSetPoint = 20
+
+    async def startServer(self) -> None :
+        # Setup server.
+        await self.server.init()
+        self.server.set_endpoint(self.endpoint)
 
         # Setup Namespace
         self.idx = await self.server.register_namespace(self.uri)
