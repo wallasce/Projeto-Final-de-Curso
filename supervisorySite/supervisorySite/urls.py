@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from ihm.views import Supervisory
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", Supervisory)
 ]
