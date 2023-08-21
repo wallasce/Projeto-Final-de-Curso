@@ -1,11 +1,14 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title> {% block title %} Supervisory {% endblock %}</title>
+    <script src="{% static 'ihm/getOPCValues.js' %}"></script>
 </head>
 <body>
     {% block sensor %}
-    <h3> The current temperature is {{ temperature }}</h3>
+    <h3 id = 'temperature'> The current temperature is {{ temperature }}</h3>
     {% endblock %}
 </body>
 </html>
