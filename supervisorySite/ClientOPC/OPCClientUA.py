@@ -17,9 +17,45 @@ class OPCClientUA:
     async def disconnect(self):
         await self.client.disconnect()
     
+    # Getters.
     async def getTemperature(self) -> float:
         temperature = await self.client.nodes.root.get_child(
             ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Temperature"]
         )
 
         return await temperature.read_value()
+
+    async def getMode(self) -> str:
+        mode = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Mode"]
+        )
+
+        return await mode.read_value()
+    
+    async def getVoltage(self) -> float:
+        voltage = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Voltage"]
+        )
+
+        return await voltage.read_value()
+    
+    async def getSetPoint(self) -> float:
+        setPoint = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:SetPoint"]
+        )
+
+        return await setPoint.read_value()
+    
+    async def getKi(self) -> float:
+        ki = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Ki"]
+        )
+
+        return await ki.read_value()
+    
+    async def getKp(self) -> float:
+        kp = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Kp"]
+        )
+
+        return await kp.read_value()
