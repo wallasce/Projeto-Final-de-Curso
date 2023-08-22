@@ -29,9 +29,9 @@ class OPCServer:
         self.ki = await self.box.add_variable(self.idx, "Ki", 4.5)
         self.kp = await self.box.add_variable(self.idx, "Kp", 1.8)
         self.mode = await self.box.add_variable(self.idx, "Mode", 'A')
-        self.setPoint = await self.box.add_variable(self.idx, "SetPoint", 20)
-        self.temperature = await self.box.add_variable(self.idx, "Temperature", 0)
-        self.voltage = await self.box.add_variable(self.idx, "Voltage", 0)
+        self.setPoint = await self.box.add_variable(self.idx, "SetPoint", 20.0)
+        self.temperature = await self.box.add_variable(self.idx, "Temperature", 0.0)
+        self.voltage = await self.box.add_variable(self.idx, "Voltage", 0.0)
 
         # Set some variables to be writable by clients.
         await self.ki.set_writable()
