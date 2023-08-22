@@ -9,10 +9,20 @@ async def getOPCValues(request):
     await client.connect()
 
     temperature = await client.getTemperature()
+    mode = await client.getMode()
+    voltage = await client.getVoltage()
+    setPoint = await client.getSetPoint()
+    ki = await client.getKi()
+    kp = await client.getKp()
 
     await client.disconnect()
     response = json.dumps({
         'temperature' : temperature,
+        'mode' : mode,
+        'voltage' : voltage,
+        'setPoint' : setPoint,
+        'ki' : ki,
+        'kp' : kp,
     })
 
     return HttpResponse(response)

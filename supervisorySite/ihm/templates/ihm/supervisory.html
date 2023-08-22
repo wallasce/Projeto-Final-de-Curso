@@ -7,8 +7,34 @@
     <script src="{% static 'ihm/getOPCValues.js' %}"></script>
 </head>
 <body>
+    <div id = "header">
+        <h1>Caixa Termoelétricemnte Controlada</h1>
+    </div>
+
     {% block sensor %}
-    <h3 id = 'temperature'> The current temperature is {{ temperature }}</h3>
+    <div id = 'block-sensor'>
+        <h3 id = 'temperature'> The current temperature is {{ temperature }}</h3>
+    </div>
+    {% endblock %}
+
+    {% block mode%}
+    <div id = 'block-mode'>
+        <h3 id = 'mode'> Mode: {{ mode }}</h3>
+    </div>
+    {% endblock %}
+
+    {% block manual%}
+    <div id = 'block-manual'>
+        <h3 id = 'voltage'> Voltage: {{ voltage }}</h3>
+    </div>
+    {% endblock %}
+
+    {% block controler%}
+    <div id = 'block-controler'>
+        <h3 id = 'setPoint'> SetPoint: {{ setPoint }}</h3>
+        <h3 id = 'kp'> Kp: {{ kp }}</h3>
+        <h3 id = 'ki'> Ki: {{ ki }}</h3>
+    </div>
     {% endblock %}
 </body>
 </html>
