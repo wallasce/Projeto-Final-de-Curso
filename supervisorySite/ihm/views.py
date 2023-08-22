@@ -10,7 +10,22 @@ from ClientOPC.OPCClientUA import OPCClientUA
 async def Supervisory(request):
     client = OPCClientUA()
     await client.connect()
-    temperature = await client.getTemperature()
-    await client.disconnect()
 
-    return render(request, "ihm/supervisory.html", {"temperature" : temperature})
+    temperature = await client.getTemperature()
+    mode = await client.getMode()
+    voltage = await client.getVoltage()
+    setPoint = await client.getSetPoint()
+    ki = await client.getKi()
+    kp = await client.getKp()
+
+    await client.disconnect()
+    parameters = {
+        'temperature' : temperature,
+        'mode' : mode,
+        'voltage' : voltage,
+        'setPoint' : setPoint,
+        'ki' : ki,
+        'kp' : kp,
+    }
+
+    return render(request, "ihm/supervisory.html", parameters)
