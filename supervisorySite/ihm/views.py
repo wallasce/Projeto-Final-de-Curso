@@ -5,9 +5,10 @@ import os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from ClientOPC.OPCClientUA import OPCClientUA
+from .form import ControlerForm
 
 # Create your views here.
-async def Supervisory(request):
+async def Supervisory(request):    
     client = OPCClientUA()
     await client.connect()
 
@@ -19,7 +20,11 @@ async def Supervisory(request):
     kp = await client.getKp()
 
     await client.disconnect()
+
+    controlerForm = ControlerForm()
+    
     parameters = {
+        'controlerForm' : controlerForm,
         'temperature' : temperature,
         'mode' : mode,
         'voltage' : voltage,

@@ -31,9 +31,14 @@
 
     {% block controler%}
     <div id = 'block-controler'>
-        <h3 id = 'setPoint'> SetPoint: {{ setPoint }}</h3>
-        <h3 id = 'kp'> Kp: {{ kp }}</h3>
-        <h3 id = 'ki'> Ki: {{ ki }}</h3>
+        <form>
+            {{ controlerForm }}
+        </form>
+        <!--
+            <h3 id = 'setPoint'> SetPoint: {{ setPoint }}</h3>
+            <h3 id = 'kp'> Kp: {{ kp }}</h3>
+            <h3 id = 'ki'> Ki: {{ ki }}</h3>
+        -->
     </div>
     {% endblock %}
 </body>

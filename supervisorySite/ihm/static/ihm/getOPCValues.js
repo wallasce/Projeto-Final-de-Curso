@@ -13,14 +13,22 @@ function changeInnerText(id, message, value) {
     document.getElementById(id).innerText = message + value;
 }
 
+function changeLabelForm(id, message, value) {
+    /*element = document.getElementById(id)
+    if (element !== document.activeElement) {
+        element.value = value
+    }*/
+    document.querySelector("label[for = "+ id +"]").innerText = message + value;
+}
+
 function updateValues(response) {
     variables = JSON.parse(response.response);
     changeInnerText("temperature", "The current temperature is: ", variables.temperature);
     changeInnerText("mode", "Mode: ", variables.mode);
     changeInnerText("voltage", "Voltage: ", variables.voltage);
-    changeInnerText("setPoint", "SetPoint: ", variables.setPoint);
-    changeInnerText("kp", "Kp: ", variables.kp);
-    changeInnerText("ki", "Ki: ", variables.ki);
+    changeLabelForm("setPoint", "SetPoint: ", variables.setPoint);
+    changeLabelForm("kp", "Kp: ", variables.kp);
+    changeLabelForm("ki", "Ki: ", variables.ki);
 }
 
 var periodicInterval = setInterval(ajax, 700)
