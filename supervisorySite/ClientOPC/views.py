@@ -26,3 +26,14 @@ async def getOPCValues(request):
     })
 
     return HttpResponse(response)
+
+async def setOPCSetPoint(request):
+    client = OPCClientUA()
+    await client.connect()
+
+    newSetPoint = float(request.body)
+    await client.setSetPoint(newSetPoint)
+
+    await client.disconnect()
+    
+    return HttpResponse(request)

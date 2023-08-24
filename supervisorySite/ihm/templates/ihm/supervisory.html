@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id = "header">
-        <h1>Caixa Termoelétricemnte Controlada</h1>
+        <h1>Caixa Termoelétricamente Controlada</h1>
     </div>
 
     {% block sensor %}
@@ -34,12 +34,9 @@
         <form>
             {{ controlerForm }}
         </form>
-        <!--
-            <h3 id = 'setPoint'> SetPoint: {{ setPoint }}</h3>
-            <h3 id = 'kp'> Kp: {{ kp }}</h3>
-            <h3 id = 'ki'> Ki: {{ ki }}</h3>
-        -->
     </div>
     {% endblock %}
+    {% csrf_token %}
+    <script src="{% static 'ihm/setOPCValues.js' %}"></script>
 </body>
 </html>

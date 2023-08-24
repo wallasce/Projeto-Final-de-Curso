@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ihm.views import Supervisory
-from ClientOPC.views import getOPCValues
+from ClientOPC.views import getOPCValues, setOPCSetPoint
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", Supervisory),
-    path("ajax/getOPCValues", getOPCValues, name = 'getOPCValues')
+    path("ajax/getOPCValues", getOPCValues, name = 'getOPCValues'),
+    path("ajax/setOPCSetPoint", setOPCSetPoint, name = 'setOPCSetPoint'),
 ]
