@@ -25,5 +25,6 @@ async def main():
             await OPCServerUA.setVoltage(float(temperature*0.1))
             await OPCServerUA.setMode(mode)
             await OPCServerUA.setTemperature(float(temperature))
+            print(await OPCServerUA.setPoint.read_value())
 
 asyncio.run(main())
