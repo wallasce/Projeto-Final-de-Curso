@@ -14,11 +14,11 @@ function changeInnerText(id, message, value) {
 }
 
 function changeLabelForm(id, message, value) {
-    /*element = document.getElementById(id)
+    element = document.getElementById(id)
     if (element !== document.activeElement) {
         element.value = value
-    }*/
-    document.querySelector("label[for = "+ id +"]").innerText = message + value;
+    }
+    //document.querySelector("label[for = "+ id +"]").innerText = message + value;
 }
 
 function updateValues(response) {
