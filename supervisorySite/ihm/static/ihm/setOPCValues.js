@@ -11,8 +11,7 @@ function addEventsToInput(id, ajaxFunction) {
     }
 
     inputElement.onkeyup = function(event) {
-        var keyCode = event.code || event.key;
-        if (keyCode == 'Enter'){
+        if (event.key == 'Enter'){
             this.blur();
         }
     }
