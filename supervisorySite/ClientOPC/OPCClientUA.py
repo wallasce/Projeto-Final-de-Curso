@@ -71,3 +71,9 @@ class OPCClientUA:
             ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Ki"]
         )
         await setPointVar.write_value(ki)
+
+    async def setKp(self, kp : float) -> None:
+        setKpVar = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Kp"]
+        )
+        await setKpVar.write_value(kp)

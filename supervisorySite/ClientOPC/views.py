@@ -35,6 +35,8 @@ async def setValue(varOPC : str, value : float) -> None:
         await client.setSetPoint(value)
     elif (varOPC == 'ki'):
         await client.setKi(value)
+    elif (varOPC == 'kp'):
+        await client.setKp(value)
 
     await client.disconnect()
 
@@ -45,5 +47,10 @@ async def setOPCSetPoint(request):
 
 async def setOPCKi(request):
     await setValue('ki', float(request.body))
+    
+    return HttpResponse(request)
+
+async def setOPCKp(request):
+    await setValue('kp', float(request.body))
     
     return HttpResponse(request)
