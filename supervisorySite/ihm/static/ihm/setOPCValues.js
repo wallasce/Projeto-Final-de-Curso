@@ -19,3 +19,4 @@ function addEventsToInput(id, ajaxFunction) {
 }
 
 addEventsToInput('setPoint', 'ajax/setOPCSetPoint');
+addEventsToInput('ki', 'ajax/setOPCKi')
