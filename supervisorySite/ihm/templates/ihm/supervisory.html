@@ -19,7 +19,11 @@
 
     {% block mode%}
     <div id = 'block-mode'>
-        <h3 id = 'mode'> Mode: {{ mode }}</h3>
+        <h3>
+            <form>
+                {{ modeForm }}
+            </form>
+        </h3>
     </div>
     {% endblock %}
 
