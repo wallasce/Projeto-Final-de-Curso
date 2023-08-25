@@ -77,3 +77,10 @@ class OPCClientUA:
             ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Kp"]
         )
         await kpVar.write_value(kp)
+
+    async def setMode(self, mode : str) -> None:
+        modeVar = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Mode"]
+        )
+        print(mode)
+        await modeVar.write_value(mode)

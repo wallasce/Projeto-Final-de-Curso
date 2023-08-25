@@ -37,6 +37,8 @@ async def setValue(varOPC : str, value : float) -> None:
         await client.setKi(value)
     elif (varOPC == 'kp'):
         await client.setKp(value)
+    elif (varOPC == 'mode'):
+        await client.setMode(value)
 
     await client.disconnect()
 
@@ -52,5 +54,10 @@ async def setOPCKi(request):
 
 async def setOPCKp(request):
     await setValue('kp', float(request.body))
+    
+    return HttpResponse(request)
+
+async def setOPCMode(request):
+    await setValue('mode', request.body.decode('utf-8'))
     
     return HttpResponse(request)

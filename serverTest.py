@@ -28,5 +28,6 @@ async def main():
             print("setPoint: " + str(await OPCServerUA.setPoint.read_value()))
             print("Ki: " + str(await OPCServerUA.ki.read_value()))
             print("Kp: " + str(await OPCServerUA.kp.read_value()))
+            print("Mode: " + str(await OPCServerUA.mode.read_value()))
 
 asyncio.run(main())

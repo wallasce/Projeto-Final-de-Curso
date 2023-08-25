@@ -17,6 +17,18 @@ function addEventsToInput(id, ajaxFunction) {
     }
 }
 
+function addAjxaOnChangeRadioForm(id, ajaxFunction) {
+    document.getElementById(id).onchange = function() {
+        var value = this.querySelector('input[name=mode]:checked').value;
+    
+        var xhhtp = new XMLHttpRequest();
+            xhhtp.open("POST", ajaxFunction, true);
+            xhhtp.setRequestHeader("X-CSRFToken", csrftoken); 
+            xhhtp.send(value);
+    }
+}
+
+addAjxaOnChangeRadioForm('mode', 'ajax/setOPCMode')
 addEventsToInput('setPoint', 'ajax/setOPCSetPoint');
 addEventsToInput('ki', 'ajax/setOPCKi')
 addEventsToInput('kp', 'ajax/setOPCKp')
