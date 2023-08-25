@@ -29,11 +29,11 @@ async def thOPCServer():
             await OPCServerUA.setTemperature(dataManager.getLastTemperature)
             await OPCServerUA.setVoltage(dataManager.getLastVoltage)
 
-            # Checks if client update controler values.
-            if (await OPCServerUA.controlerChange()):
-                controler = await OPCServerUA.getControler()
-                dataManager.setControler(controler[0], controler[1])
-                await OPCServerUA.updatePreviousControler()
+            # Checks if client update controller values.
+            if (await OPCServerUA.controllerChange()):
+                controller = await OPCServerUA.getController()
+                dataManager.setController(controller[0], controller[1])
+                await OPCServerUA.updatePreviousController()
 
 async def thDataAcquisition():
     global dataManager

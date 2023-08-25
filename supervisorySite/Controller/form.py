@@ -1,14 +1,14 @@
 from django.forms import ModelForm
 
-from .models import Controler
+from .models import Controller
 
-class ControlerForm(ModelForm):
+class ControllerForm(ModelForm):
     class Meta:
-        model = Controler
+        model = Controller
         fields = '__all__'
 
     def __init__(self, *args, **kwargs) -> None:
-        super(ControlerForm, self).__init__(*args, **kwargs)
+        super(ControllerForm, self).__init__(*args, **kwargs)
         self.fields['ki'].widget.attrs.update({
             'id' : 'ki',
         })

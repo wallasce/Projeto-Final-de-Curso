@@ -76,12 +76,12 @@ class dataAcquisition:
         mesage = mesage.encode()
         self.serialConection.write(mesage)
 
-    def setControler(self, kp, ki) -> None:
-        # Initial controler mesage standard.
+    def setController(self, kp, ki) -> None:
+        # Initial controller mesage standard.
         mesage = 'C'
         mesage = mesage + self.removeFirstDecimalPlace(kp)
         mesage = mesage + self.removeFirstDecimalPlace(ki)
-        # End controler mesage standard.
+        # End controller mesage standard.
         mesage = 'F'
 
         mesage = mesage.encode()

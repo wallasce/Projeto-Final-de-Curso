@@ -43,11 +43,11 @@ class OPCServer:
         return await self.setPoint.read_value()
     
     # Return a tuple with (ki, kp).
-    async def getControler(self) -> tuple:
+    async def getController(self) -> tuple:
         return (await self.ki.read_value(), await self.kp.read_value())
     
-    # Check if client change the Controler value.
-    async def controlerChange(self, ki, kp) -> bool:
+    # Check if client change the Controller value.
+    async def controllerChange(self, ki, kp) -> bool:
         return not (self.previousKi == await self.ki.read_value() and
                 self.previousKP == await self.kp.read_value())
 
@@ -77,7 +77,7 @@ class OPCServer:
     async def setVoltage(self, voltage) -> None:
         await self.voltage.write_value(voltage)
 
-    async def updatePreviousControler(self) -> None:
+    async def updatePreviousController(self) -> None:
         self.previousKi = await self.ki.read_value()
         self.previousKp = await self.kp.read_value()
 
