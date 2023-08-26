@@ -10,8 +10,9 @@ function addEventsToInput(id, ajaxFunction) {
         xhhtp.send(String(this.value));
     }
 
-    inputElement.onkeyup = function(event) {
+    inputElement.onkeydown = function(event) {
         if (event.key == 'Enter'){
+            event.preventDefault();
             this.blur();
         }
     }
@@ -32,3 +33,4 @@ addAjxaOnChangeRadioForm('mode', 'ajax/setOPCMode')
 addEventsToInput('setPoint', 'ajax/setOPCSetPoint');
 addEventsToInput('ki', 'ajax/setOPCKi')
 addEventsToInput('kp', 'ajax/setOPCKp')
+addEventsToInput('voltage', 'ajax/setOPCVoltage');

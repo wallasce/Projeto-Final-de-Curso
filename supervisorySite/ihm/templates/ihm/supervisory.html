@@ -15,7 +15,7 @@
     <div id = 'block-sensor'>
         <h2> Sensors </h2>
         <h3 id = 'temperature'> Temperature: {{ temperature }}</h3>
-        <h3 id = 'voltage'> Voltage: {{ voltage }}</h3>
+        <h3 id = 'voltageSensor'> Voltage: {{ voltage }}</h3>
     </div>
     {% endblock %}
 
@@ -31,9 +31,11 @@
 
     {% block manual%}
     <div id = 'block-manual'>
-        <form>
-            {{ voltageForm }}
-        </form>
+        <h3>
+            <form>
+                {{ voltageForm }}
+            </form>
+        </h3>
     </div>
     {% endblock %}
 

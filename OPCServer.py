@@ -38,6 +38,7 @@ class OPCServer:
         await self.kp.set_writable()
         await self.mode.set_writable() 
         await self.setPoint.set_writable()
+        await self.voltage.set_writable()
 
     async def getSetPoint(self) -> float:
         return await self.setPoint.read_value()

@@ -29,8 +29,9 @@ function changeModeSelect(value) {
 
 function updateValues(response) {
     variables = JSON.parse(response.response);
-    changeInnerText("temperature", "The current temperature is: ", variables.temperature);
-    changeInnerText("voltage", "Voltage: ", variables.voltage);
+    changeInnerText("temperature", "Temperature: ", variables.temperature);
+    changeInnerText("voltageSensor", "Voltage: ", variables.voltage);
+    changeLabelForm("voltage", "Voltage: ", variables.voltage);
     changeLabelForm("setPoint", "SetPoint: ", variables.setPoint);
     changeLabelForm("kp", "Kp: ", variables.kp);
     changeLabelForm("ki", "Ki: ", variables.ki);

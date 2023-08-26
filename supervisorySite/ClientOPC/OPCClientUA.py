@@ -82,5 +82,10 @@ class OPCClientUA:
         modeVar = await self.client.nodes.root.get_child(
             ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Mode"]
         )
-        print(mode)
         await modeVar.write_value(mode)
+
+    async def setVoltage(self, voltage : float) -> None:
+        voltageVar = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Voltage"]
+        )
+        await voltageVar.write_value(voltage)
