@@ -6,7 +6,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from ClientOPC.OPCClientUA import OPCClientUA
 from Controller.form import ControllerForm
-from .forms import ModeForm
+from .forms.ihm.ModeForm import ModeForm
+from .forms.ihm.VoltageForm import VoltageForm
 
 # Create your views here.
 async def Supervisory(request):    
@@ -24,10 +25,12 @@ async def Supervisory(request):
 
     controllerForm = ControllerForm()
     modeForm = ModeForm()
+    voltageForm = VoltageForm()
     
     parameters = {
         'controllerForm' : controllerForm,
         'modeForm' : modeForm,
+        'voltageForm' : voltageForm,
         'temperature' : temperature,
         'mode' : mode,
         'voltage' : voltage,
