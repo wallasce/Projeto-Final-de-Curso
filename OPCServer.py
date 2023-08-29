@@ -1,4 +1,5 @@
 from asyncua import Server, ua
+from asyncua.server.history_sql import HistorySQLite
 
 class OPCServer:
     #hostname -I
@@ -7,6 +8,7 @@ class OPCServer:
 
     def __init__(self) -> None:
         self.server = Server()
+        self.server.iserver.history_manager.set_storage(HistorySQLite("temperature_history.sql"))
         
         # Default value from Arduino
         self.previousKi = 4.5
@@ -39,6 +41,9 @@ class OPCServer:
         await self.mode.set_writable() 
         await self.setPoint.set_writable()
         await self.voltage.set_writable()
+
+        # Add temperature to historic.
+        await self.server.historize_node_data_change([self.temperature, self.voltage], period=None, count=100)
 
     async def getSetPoint(self) -> float:
         return await self.setPoint.read_value()
