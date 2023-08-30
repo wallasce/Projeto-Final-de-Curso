@@ -14,3 +14,10 @@ class SQLiteManager:
         ''')
 
         return self.cursor.fetchall()
+    
+    def selectTablesInformations(self) -> dict:
+        self.cursor.execute('''
+            SELECT * FROM sqlite_master WHERE type='table';
+        ''')
+
+        return self.cursor.fetchall()
