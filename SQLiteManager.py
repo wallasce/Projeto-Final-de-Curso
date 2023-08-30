@@ -8,9 +8,9 @@ class SQLiteManager:
     def stopConnection(self) -> None:
         self.cursor.close()
 
-    def selectAllFrom(self, table : str) -> dict:
+    def selectDataFrom(self, table : str) -> dict:
         self.cursor.execute('''
-            SELECT * FROM "''' + table + '''";
+            SELECT SourceTimestamp, Value FROM "''' + table + '''";
         ''')
 
         return self.cursor.fetchall()
