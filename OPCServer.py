@@ -1,5 +1,15 @@
-from asyncua import Server, ua
+from asyncua import Server, uamethod, ua
 from asyncua.server.history_sql import HistorySQLite
+
+from SQLiteManager import SQLiteManager
+
+# Method to do a query in a dump with history data.
+@uamethod
+def getTemperatureHistory(parent) -> dict:
+    sqlConnection = SQLiteManager('temperature_history.sql')
+    answer = sqlConnection.selectDataFrom('2_6')
+    sqlConnection.stopConnection()
+    return answer
 
 class OPCServer:
     #hostname -I
@@ -44,6 +54,9 @@ class OPCServer:
 
         # Add temperature to historic.
         await self.server.historize_node_data_change([self.temperature, self.voltage], period=None, count=100)
+
+    async def createFunctions(self) -> None:
+        await self.box.add_method(self.idx, "getTemperatureHistory", getTemperatureHistory, [], [])
 
     async def getSetPoint(self) -> float:
         return await self.setPoint.read_value()

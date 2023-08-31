@@ -7,6 +7,7 @@ async def main():
     OPCServerUA = OPCServer()
     await OPCServerUA.startServer()
     await OPCServerUA.createVariables()
+    await OPCServerUA.createFunctions()
     temperature = 0
     mode = 'M'
     setPoint = 5
@@ -22,7 +23,7 @@ async def main():
             print("Temperature: " + str(temperature))
             temperature += 1
             await OPCServerUA.setSetPoint(float(setPoint))
-            #await OPCServerUA.setVoltage(float(temperature*0.1))
+            await OPCServerUA.setVoltage(float(temperature*0.1))
             await OPCServerUA.setMode(mode)
             await OPCServerUA.setTemperature(float(temperature))
             print("setPoint: " + str(await OPCServerUA.setPoint.read_value()))

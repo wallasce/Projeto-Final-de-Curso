@@ -1,4 +1,5 @@
 from asyncua import Client
+import asyncio
 
 class OPCClientUA:
     url = "opc.tcp://localhost:4840/freeopcua/server/"
@@ -89,3 +90,10 @@ class OPCClientUA:
             ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Voltage"]
         )
         await voltageVar.write_value(voltage)
+
+    async def getHistoryTemperature(self) -> None:
+        box = await self.client.nodes.root.get_child(
+            ["0:Objects", f"{self.nsidx}:Box"]
+        )
+        history = await box.call_method(f"{self.nsidx}:getTemperatureHistory")
+        return history
