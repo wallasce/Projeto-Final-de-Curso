@@ -1,5 +1,4 @@
-from asyncua import Client
-import asyncio
+from asyncua import Client, ua
 
 class OPCClientUA:
     url = "opc.tcp://localhost:4840/freeopcua/server/"
@@ -91,9 +90,32 @@ class OPCClientUA:
         )
         await voltageVar.write_value(voltage)
 
-    async def getHistoryTemperature(self) -> None:
+    # The table in Server Database follows this standard <namespaceID>_<varID>
+    # This functions get these ids and return the table name.
+    def OPCVarToTableName(self, OPCVar : list[ua.NodeClass] | ua.NodeClass) -> str:
+        namespaceId = str(OPCVar.nodeid.NamespaceIndex)
+        varId = str(OPCVar.nodeid.Identifier)
+        return namespaceId + "_" + varId 
+
+    async def getHistoryDataFrom(self, variable : str) -> None:
+        if variable == "temperature":
+            OPCVar = await self.client.nodes.root.get_child(
+                ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Temperature"]
+            )
+        elif variable == "setPoint":
+            OPCVar = await self.client.nodes.root.get_child(
+                ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:SetPoint"]
+            )
+        elif variable == "voltage":
+            OPCVar = await self.client.nodes.root.get_child(
+                ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Voltage"]
+            )
+        else:
+            return 
+        table = self.OPCVarToTableName(OPCVar) 
+        
         box = await self.client.nodes.root.get_child(
             ["0:Objects", f"{self.nsidx}:Box"]
         )
-        history = await box.call_method(f"{self.nsidx}:getTemperatureHistory")
+        history = await box.call_method(f"{self.nsidx}:getHistoryData", table)
         return history

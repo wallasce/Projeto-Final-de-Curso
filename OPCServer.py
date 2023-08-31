@@ -5,9 +5,9 @@ from SQLiteManager import SQLiteManager
 
 # Method to do a query in a dump with history data.
 @uamethod
-def getTemperatureHistory(parent) -> dict:
+def getHistoryData(parent, table : str) -> dict:
     sqlConnection = SQLiteManager('temperature_history.sql')
-    answer = sqlConnection.selectDataFrom('2_6')
+    answer = sqlConnection.selectDataFrom(table)
     sqlConnection.stopConnection()
     return answer
 
@@ -53,10 +53,11 @@ class OPCServer:
         await self.voltage.set_writable()
 
         # Add temperature to historic.
-        await self.server.historize_node_data_change([self.temperature, self.voltage], period=None, count=100)
+        varToHistorize = [self.temperature, self.voltage, self.setPoint]
+        await self.server.historize_node_data_change(varToHistorize, period=None, count=100)
 
     async def createFunctions(self) -> None:
-        await self.box.add_method(self.idx, "getTemperatureHistory", getTemperatureHistory, [], [])
+        await self.box.add_method(self.idx, "getHistoryData", getHistoryData, [], [])
 
     async def getSetPoint(self) -> float:
         return await self.setPoint.read_value()
