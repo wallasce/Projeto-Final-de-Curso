@@ -25,3 +25,10 @@ async def getHistorySetPoint(request):
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="HistorySetPoint.txt"'
     return response
+
+async def getHistoryVoltage(request):
+    fileData = await getHistoryData('voltage')
+
+    response = HttpResponse(fileData, content_type='application/text charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="HistoryVoltage.txt"'
+    return response

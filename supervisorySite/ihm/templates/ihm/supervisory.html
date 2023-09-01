@@ -49,6 +49,7 @@
     </div>
     {% endblock %}
 
+    {% block History%}
     <a href="file/temperature">
         <input type="button" value="Dowload Temperature" />
     </a>
@@ -56,6 +57,11 @@
     <a href="file/setPoint">
         <input type="button" value="Dowload SetPoint" />
     </a>
+
+    <a href="file/voltage">
+        <input type="button" value="Dowload Voltage" />
+    </a>
+    {% endblock %}
 
     {% csrf_token %}
     <script src="{% static 'ihm/setOPCValues.js' %}"></script>

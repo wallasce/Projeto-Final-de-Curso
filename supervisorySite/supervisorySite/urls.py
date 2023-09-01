@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from ihm.views import Supervisory
 from ClientOPC.views import getOPCValues, setOPCSetPoint, setOPCKi, setOPCKp, setOPCMode, setOPCVoltage
-from FileManager.views import getHistoryTemperature, getHistorySetPoint
+from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -31,4 +31,5 @@ urlpatterns = [
     path("ajax/setOPCVoltage", setOPCVoltage, name = 'setOPCVoltage'),
     path("file/temperature", getHistoryTemperature, name = 'getHistoryTemperature'),
     path("file/setPoint", getHistorySetPoint, name = 'getHistorySetPoint'),
+    path("file/voltage", getHistoryVoltage, name = 'getHistoryVoltage'),
 ]
