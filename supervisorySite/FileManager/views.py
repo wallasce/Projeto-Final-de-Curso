@@ -7,10 +7,7 @@ from ClientOPC.OPCClientUA import OPCClientUA
 async def getHistoryData(variable : str) -> dict:
     client = OPCClientUA()
     await client.connect()
-    
-    if (variable == 'temperature'):
-        historyData = await client.getHistoryDataFrom('temperature')
-        
+    historyData = await client.getHistoryDataFrom(variable)    
     await client.disconnect()
 
     return historyData
@@ -20,4 +17,11 @@ async def getHistoryTemperature(request):
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="HistoryTemperature.txt"'
+    return response
+
+async def getHistorySetPoint(request):
+    fileData = await getHistoryData('setPoint')
+
+    response = HttpResponse(fileData, content_type='application/text charset=utf-8')
+    response['Content-Disposition'] = 'attachment; filename="HistorySetPoint.txt"'
     return response
