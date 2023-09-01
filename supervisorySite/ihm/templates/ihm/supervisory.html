@@ -48,6 +48,12 @@
         </form>
     </div>
     {% endblock %}
+
+    <a href="file/temperature">
+        <input type="button" value="Dowload Temperature" />
+     </a>
+     
+
     {% csrf_token %}
     <script src="{% static 'ihm/setOPCValues.js' %}"></script>
 </body>
