@@ -20,11 +20,33 @@ function changeLabelForm(id, message, value) {
     }
 }
 
+function disbleElement(id) {
+    document.getElementById(id).disabled = true
+}
+
+function enableElement(id) {
+    document.getElementById(id).disabled = false
+}
+
+
 // Change the Choice Field Mode.
 function changeModeSelect(value) {
     formMode = document.getElementById("mode");
     option = formMode.querySelector("input[value=" + value + "]")
     option.checked = true;
+
+    if (value == 'A') {
+        enableElement('setPoint');
+        enableElement('ki');
+        enableElement('kp');
+        disbleElement('voltage');
+    }else if (value == 'M') {
+        disbleElement('setPoint');
+        disbleElement('ki');
+        disbleElement('kp');
+        enableElement('voltage');
+    }
+
 }
 
 function updateValues(response) {
