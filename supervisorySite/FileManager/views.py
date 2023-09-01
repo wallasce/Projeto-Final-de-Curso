@@ -4,11 +4,19 @@ from django.http import HttpResponse
 from ClientOPC.OPCClientUA import OPCClientUA
 
 # Create your views here.
-async def getHistoryTemperature(request):
+async def getHistoryData(variable : str) -> dict:
     client = OPCClientUA()
     await client.connect()
-    fileData = await client.getHistoryDataFrom('temperature')
+    
+    if (variable == 'temperature'):
+        historyData = await client.getHistoryDataFrom('temperature')
+        
     await client.disconnect()
+
+    return historyData
+
+async def getHistoryTemperature(request):
+    fileData = await getHistoryData('temperature')
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="HistoryTemperature.txt"'
