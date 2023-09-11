@@ -1,5 +1,6 @@
 from asyncua import Client, ua
 
+import json
 class OPCClientUA:
     url = "opc.tcp://localhost:4840/freeopcua/server/"
     namespace = "Camera Termoeletricamente Controlada"
@@ -96,6 +97,13 @@ class OPCClientUA:
         namespaceId = str(OPCVar.nodeid.NamespaceIndex)
         varId = str(OPCVar.nodeid.Identifier)
         return namespaceId + "_" + varId 
+    
+    def formatData(self, data : list[tuple]) -> str:
+        formatedData = ""
+        for element in data:
+            formatedData += str(element) + "\n"
+            
+        return formatedData
 
     async def getHistoryDataFrom(self, variable : str) -> None:
         if variable == "temperature":
@@ -118,4 +126,5 @@ class OPCClientUA:
             ["0:Objects", f"{self.nsidx}:Box"]
         )
         history = await box.call_method(f"{self.nsidx}:getHistoryData", table)
+        history = self.formatData(history)
         return history
