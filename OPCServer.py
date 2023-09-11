@@ -30,6 +30,9 @@ class OPCServer:
         # Setup server.
         await self.server.init()
         self.server.set_endpoint(self.endpoint)
+        
+        sqlConnection = SQLiteManager('temperature_history.sql')
+        sqlConnection.clearData()
 
         # Setup Namespace
         self.idx = await self.server.register_namespace(self.uri)

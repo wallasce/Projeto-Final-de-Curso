@@ -8,6 +8,12 @@ class SQLiteManager:
     def stopConnection(self) -> None:
         self.cursor.close()
 
+    def clearData(self) -> None:
+        for table in self.selectTablesInformations():
+            self.cursor.execute('''
+                DROP TABLE IF EXISTS "''' + table[2] + '''";
+            ''')
+
     def selectDataFrom(self, table : str) -> dict:
         self.cursor.execute('''
             SELECT SourceTimestamp, Value FROM "''' + table + '''";
