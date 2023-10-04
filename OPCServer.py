@@ -2,6 +2,7 @@ from asyncua import Server, uamethod, ua
 from asyncua.server.history_sql import HistorySQLite
 
 from SQLiteManager import SQLiteManager
+from FormaterData import formaterData
 
 # Method to do a query in a dump with history data.
 @uamethod
@@ -9,6 +10,10 @@ def getHistoryData(parent, table : str) -> dict:
     sqlConnection = SQLiteManager('temperature_history.sql')
     answer = sqlConnection.selectDataFrom(table)
     sqlConnection.stopConnection()
+
+    formater = formaterData()
+    answer = formater.getFormatedData(answer)
+    
     return answer
 
 class OPCServer:
