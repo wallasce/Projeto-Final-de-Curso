@@ -1,10 +1,13 @@
 from datetime import datetime, timedelta
-from SQLiteManager import SQLiteManager
+
+import pytz
 
 class formaterData:
     def __init__(self) -> None:
         self.formatDateMS = "%Y-%m-%d %H:%M:%S.%f"
         self.formatDate = "%Y-%m-%d %H:%M:%S"
+
+        self.now = datetime.now(pytz.timezone('Etc/GMT'))
         pass
 
     def getFormatedData(self,  data : list[tuple]) -> None:
@@ -27,11 +30,22 @@ class formaterData:
 
         return (dateVar + timedelta(seconds=1)).strftime(self.formatDateMS)
     
+    # Check if the date is the same
+    def dateIsEqualNow(self, date : str) -> bool:
+        dateTime = datetime.strptime(date, self.formatDateMS)
+
+        strDateBase = dateTime.strftime(self.formatDate)
+        strDate = self.now.strftime(self.formatDate)
+
+        return strDateBase == strDate
+    
     # Garants data for each second stored.
     def generateDatatoEachSecond(self, dataList : list[tuple]) -> list[tuple]:
         dataListFormated = []   
         dataListFormated.append(dataList[0])
         count = 1
+
+        # Generate the data between the changes.
         while(True):
             if (count == len(dataList)):
                 break
@@ -43,6 +57,14 @@ class formaterData:
                 newData = self.addOneSecond(dataListFormated[-1][0])
                 dataListFormated.append((newData, dataListFormated[-1][1]))
 
+        # Generate data until now.
+        while(True):
+            if(self.dateIsEqualNow(dataListFormated[-1][0])):
+                break
+
+            newData = self.addOneSecond(dataListFormated[-1][0])
+            dataListFormated.append((newData, dataListFormated[-1][1]))
+
         return dataListFormated
     
     def transformListToString(self, dataList : list[tuple]) -> str:
@@ -52,11 +74,3 @@ class formaterData:
             dataStr += str(data) + '\n'
 
         return dataStr
-    
-    
-sqlConnection = SQLiteManager('temperature_history.sql')
-answer = sqlConnection.selectDataFrom('2_5')
-sqlConnection.stopConnection()
-
-test = formaterData()
-print(test.getFormatedData(answer))
