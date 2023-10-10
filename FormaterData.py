@@ -42,20 +42,25 @@ class formaterData:
     # Garants data for each second stored.
     def generateDatatoEachSecond(self, dataList : list[tuple]) -> list[tuple]:
         dataListFormated = []   
-        dataListFormated.append(dataList[0])
-        count = 1
+        secondTime = 0
+        
+        dataListFormated.append((dataList[0][0], float(dataList[0][1]), secondTime))
+        secondTime += 1
 
+        count = 1
         # Generate the data between the changes.
         while(True):
             if (count == len(dataList)):
                 break
                 
             if (self.deltaIsOneSecond(dataList[count][0], dataListFormated[-1][0])):
-                dataListFormated.append(dataList[count])
+                dataListFormated.append((dataList[count][0], float(dataList[count][1]), secondTime))
                 count += 1
             else:
                 newData = self.addOneSecond(dataListFormated[-1][0])
-                dataListFormated.append((newData, dataListFormated[-1][1]))
+                dataListFormated.append((newData, float(dataListFormated[-1][1]), secondTime))
+            
+            secondTime += 1
 
         # Generate data until now.
         while(True):
@@ -63,7 +68,8 @@ class formaterData:
                 break
 
             newData = self.addOneSecond(dataListFormated[-1][0])
-            dataListFormated.append((newData, dataListFormated[-1][1]))
+            dataListFormated.append((newData, float(dataListFormated[-1][1]), secondTime))
+            secondTime += 1
 
         return dataListFormated
     
