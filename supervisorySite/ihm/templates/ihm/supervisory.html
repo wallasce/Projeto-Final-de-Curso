@@ -64,6 +64,10 @@
     {% endblock %}
 
     {% csrf_token %}
+
+    {% block Chart %}
+        {% include 'Charts/line_chart.html' %}
+    {% endblock %}
     <script src="{% static 'ihm/setOPCValues.js' %}"></script>
 </body>
 </html>

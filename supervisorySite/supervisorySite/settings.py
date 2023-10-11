@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "ihm",
     "Controller",
+    "chartjs",
+    "Charts",
 ]
 
 MIDDLEWARE = [
