@@ -6,25 +6,11 @@
     </head>
 
     <body>
-        <!--<div class="chart-container" style="position: relative; margin: 0 auto; height:80vh; width:80vw">-->
         <div class="chart-container">
             <canvas id="myChart"></canvas>
-            
-            <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+            <!--Do not delete the line above, this impact Charts\JS\chart.js-->
             <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-            <script type="text/javascript">
-                $.get('{% url "line_chart_json" %}', function(data) {
-                    var ctx = $("#myChart").get(0).getContext("2d");
-                    new Chart(ctx, {
-                        type: 'line', 
-                        data: data,
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                        }
-                    });
-                });
-            </script>
+            <script src="{% static 'Charts\JS\chart.js' %}"></script>
         </div>        
     </body>
 </html>
