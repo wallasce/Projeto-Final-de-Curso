@@ -20,5 +20,5 @@ class LineChartJSONView(BaseLineChartView):
                 [10, 15, 16, 17, 18, 19, 20]]
 
 
-line_chart = TemplateView.as_view(template_name='Charts/line_chart.html')
-line_chart_json = LineChartJSONView.as_view()
+lineChart = TemplateView.as_view(template_name='Charts/lineChart.html')
+lineChartJson = LineChartJSONView.as_view()
