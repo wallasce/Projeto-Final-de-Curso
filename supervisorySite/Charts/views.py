@@ -1,24 +1,52 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
+from django.shortcuts import render, HttpResponse
+from ClientOPC.OPCClientUA import OPCClientUA
+import json
 
 # Create your views here.
+async def lineChartJson(request) :
+    def transformStrInListofTuple(data : str) -> list[tuple]:
+        data = data.replace(' ', '')
+        data = data.split("\n")
+        return  [eval(file) for file in data[0:len(data) - 1]]
+    
+    client = OPCClientUA()
+    await client.connect()
+    temperature = await client.getHistoryDataFrom('temperature')    
+    setPoint = await client.getHistoryDataFrom('setPoint')    
+    await client.disconnect()
 
-class LineChartJSONView(BaseLineChartView):
-    def get_labels(self):
-        """Return 7 labels for the x-axis."""
-        return ["1", "2", "3", "4", "5", "6", "7"]
+    temperature = transformStrInListofTuple(temperature)
+    setPoint = transformStrInListofTuple(setPoint)
 
-    def get_providers(self):
-        """Return names of datasets."""
-        return ["SetPoint", "Temperature"]
+    labels = [str(data[2]) for data in temperature]
+    temperature = [data[1] for data in temperature]
+    setPoint = [data[1] for data in setPoint]
 
-    def get_data(self):
-        """Return 2 datasets to plot."""
+    response = json.dumps({
+        'type' : 'line',
+        'data' : {
+            'labels' : labels,
+            'datasets' : [{
+                'label' : 'temperature',
+                'data' : temperature,
+                'fill' : False,
+                "backgroundColor": "rgba(232, 5, 5, 0.2)",
+                "borderColor": "rgb(232, 5, 5)",
+                "borderWidth": 1,
+            },{
+               'label' : 'setPoint',
+                'data' : setPoint,
+                'fill' : False,
+                "backgroundColor": "rgba(113, 9, 145, 0.2)",
+                "borderColor": "rgb(113, 9, 145)",
+                "borderWidth": 1,
+            }]
+        },
+        'options': {
+            'responsive': True,
+            'maintainAspectRatio': False,
+            'animation': False,
+        }
+    })
 
-        return [[20, 20, 20, 20, 20, 20, 20],
-                [10, 15, 16, 17, 18, 19, 20]]
-
-
-lineChart = TemplateView.as_view(template_name='Charts/lineChart.html')
-lineChartJson = LineChartJSONView.as_view()
+    return HttpResponse(response)

@@ -19,7 +19,7 @@ from django.urls import path
 from ihm.views import Supervisory
 from ClientOPC.views import getOPCValues, setOPCSetPoint, setOPCKi, setOPCKp, setOPCMode, setOPCVoltage
 from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage
-from Charts.views import lineChart, lineChartJson
+from Charts.views import lineChartJson
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,6 +33,5 @@ urlpatterns = [
     path("file/temperature", getHistoryTemperature, name = 'getHistoryTemperature'),
     path("file/setPoint", getHistorySetPoint, name = 'getHistorySetPoint'),
     path("file/voltage", getHistoryVoltage, name = 'getHistoryVoltage'),
-    path('chart', lineChart, name='line_chart'),
     path('chartJSON', lineChartJson, name='line_chart_json'),
 ]
