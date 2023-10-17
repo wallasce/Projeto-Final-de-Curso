@@ -18,7 +18,7 @@ def getHistoryData(parent, table : str) -> dict:
 
 class OPCServer:
     #hostname -I
-    endpoint = "opc.tcp://0.0.0.0:4840/freeopcua/server/"
+    endpoint = "opc.tcp://192.168.0.2:4840/freeopcua/server/"
     uri = "Camera Termoeletricamente Controlada"
 
     def __init__(self) -> None:

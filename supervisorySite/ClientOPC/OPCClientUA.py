@@ -1,7 +1,7 @@
 from asyncua import Client, ua
 
 class OPCClientUA:
-    url = "opc.tcp://localhost:4840/freeopcua/server/"
+    url = "opc.tcp://192.168.0.2:4840/freeopcua/server/"
     namespace = "Camera Termoeletricamente Controlada"
 
     def __init__(self):
