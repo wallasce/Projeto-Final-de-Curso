@@ -5,3 +5,7 @@
     margin: 0 auto; 
     position: relative; 
 }
+
+#temperatureSetPointChart {
+    background-color: white;
+}

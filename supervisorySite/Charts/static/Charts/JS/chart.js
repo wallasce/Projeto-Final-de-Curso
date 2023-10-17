@@ -13,7 +13,7 @@ var chartElement = null;
 function plotChart(response) {
     response = JSON.parse(response);
 
-    var chart = document.getElementById('myChart').getContext("2d");
+    var chart = document.getElementById('temperatureSetPointChart').getContext("2d");
     // Chart is not find, but comes from HTML file.
     if (chartElement != null) {
         chartElement.destroy();
