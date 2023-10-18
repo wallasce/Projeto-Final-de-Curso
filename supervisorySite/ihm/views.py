@@ -5,24 +5,28 @@ import os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from ClientOPC.OPCClientUA import OPCClientUA
+from asyncua import ua
 from Controller.form import ControllerForm
 from .forms.ihm.ModeForm import ModeForm
 from .forms.ihm.VoltageForm import VoltageForm
 
 # Create your views here.
-async def Supervisory(request):    
-    client = OPCClientUA()
-    await client.connect()
+async def Supervisory(request):   
+    try:
+        client = OPCClientUA()
+        await client.connect()
 
-    temperature = await client.getTemperature()
-    mode = await client.getMode()
-    voltage = await client.getVoltage()
-    setPoint = await client.getSetPoint()
-    ki = await client.getKi()
-    kp = await client.getKp()
+        temperature = await client.getTemperature()
+        mode = await client.getMode()
+        voltage = await client.getVoltage()
+        setPoint = await client.getSetPoint()
+        ki = await client.getKi()
+        kp = await client.getKp()
 
-    await client.disconnect()
-
+        await client.disconnect()  # Throws a exception if connection is lost
+    except (ConnectionError, ua.UaError):
+        return render(request, "webSiteConfig/serverError.html")
+             
     controllerForm = ControllerForm()
     modeForm = ModeForm()
     voltageForm = VoltageForm()
