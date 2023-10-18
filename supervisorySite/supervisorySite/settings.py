@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "Controller",
     "chartjs",
     "Charts",
+    "webSiteConfig",
 ]
 
 MIDDLEWARE = [
