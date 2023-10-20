@@ -2,11 +2,38 @@ function ajax() {
     var xhhtp = new XMLHttpRequest();
     xhhtp.onreadystatechange = function () {
         if (this.status == 200 && this.response != "") {
+            turnServerStatusOn()
             updateValues(this);
+        }else if (this.status == 500){
+            turnServerStatusOff()
         }
     }
     xhhtp.open("GET", "ajax/getOPCValues", true);
     xhhtp.send();
+}
+
+function turnServerStatusOff() {
+    document.getElementById('serverStatus').innerText = 'Server Status Connection 🔴'
+    disableForm('modeForm');
+    disableElement('voltage');
+    disableElement('ki');
+    disableElement('kp');
+    disableElement('setPoint');
+    disableElement('downloadTemperature');
+    disableElement('downloadSetPoint');
+    disableElement('downloadVoltage');
+}
+
+function turnServerStatusOn() {
+    document.getElementById('serverStatus').innerText = 'Server Status Connection  🟢'
+    enableForm('modeForm');
+    enableElement('voltage');
+    enableElement('ki');
+    enableElement('kp');
+    enableElement('setPoint');
+    enableElement('downloadTemperature');
+    enableElement('downloadSetPoint');
+    enableElement('downloadVoltage');
 }
 
 function changeInnerText(id, message, value) {
@@ -20,9 +47,28 @@ function changeLabelForm(id, message, value) {
     }
 }
 
-function disbleElement(id) {
+function disableElement(id) {
     document.getElementById(id).disabled = true
 }
+
+function disableForm(id) {
+    form = document.getElementById(id)
+    elements = form.elements
+
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].disabled = true
+    }
+}
+
+function enableForm(id) {
+    form = document.getElementById(id)
+    elements = form.elements
+
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].disabled = false
+    }
+}
+
 
 function enableElement(id) {
     document.getElementById(id).disabled = false
@@ -39,11 +85,11 @@ function changeModeSelect(value) {
         enableElement('setPoint');
         enableElement('ki');
         enableElement('kp');
-        disbleElement('voltage');
+        disableElement('voltage');
     }else if (value == 'M') {
-        disbleElement('setPoint');
-        disbleElement('ki');
-        disbleElement('kp');
+        disableElement('setPoint');
+        disableElement('ki');
+        disableElement('kp');
         enableElement('voltage');
     }
 

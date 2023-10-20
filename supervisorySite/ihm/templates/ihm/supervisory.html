@@ -12,6 +12,10 @@
         <h1>Caixa Termoelétricamente Controlada</h1>
     </div>
 
+    <div id = 'serverStatus'> 
+        Server Status Connection 🟢
+    </div> 
+
     {% block sensor %}
     <div id = 'block-sensor'>
         <h2> Sensors </h2>
@@ -23,7 +27,7 @@
     {% block mode%}
     <div id = 'block-mode'>
         <h3>
-            <form>
+            <form id = 'modeForm'>
                 {{ modeForm }}
             </form>
         </h3>
@@ -52,15 +56,15 @@
 
     {% block History%}
     <a href="file/temperature">
-        <input type="button" value="Dowload Temperature" />
+        <input id = 'downloadTemperature' type="button" value="Download Temperature" />
     </a>
     
     <a href="file/setPoint">
-        <input type="button" value="Dowload SetPoint" />
+        <input id = 'downloadSetPoint' type="button" value="Download SetPoint" />
     </a>
 
     <a href="file/voltage">
-        <input type="button" value="Dowload Voltage" />
+        <input id = 'downloadVoltage' type="button" value="Download Voltage" />
     </a>
     {% endblock %}
 

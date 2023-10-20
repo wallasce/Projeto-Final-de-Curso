@@ -2,20 +2,27 @@ from django.shortcuts import render, HttpResponse
 import json
 
 from .OPCClientUA import OPCClientUA
+from asyncua import ua
 
 # Create your views here.
 async def getOPCValues(request):
-    client = OPCClientUA()
-    await client.connect()
+    try:
+        client = OPCClientUA()
+        await client.connect()
 
-    temperature = await client.getTemperature()
-    mode = await client.getMode()
-    voltage = await client.getVoltage()
-    setPoint = await client.getSetPoint()
-    ki = await client.getKi()
-    kp = await client.getKp()
+        temperature = await client.getTemperature()
+        mode = await client.getMode()
+        voltage = await client.getVoltage()
+        setPoint = await client.getSetPoint()
+        ki = await client.getKi()
+        kp = await client.getKp()
 
-    await client.disconnect()
+        await client.disconnect()
+    except (ConnectionError, ua.UaError):
+        response = HttpResponse()
+        response.status_code = 500
+        return response
+    
     response = json.dumps({
         'temperature' : temperature,
         'mode' : mode,
@@ -28,21 +35,26 @@ async def getOPCValues(request):
     return HttpResponse(response)
 
 async def setValue(varOPC : str, value : float) -> None:
-    client = OPCClientUA()
-    await client.connect()
+    try:
+        client = OPCClientUA()
+        await client.connect()
 
-    if (varOPC == 'setPoint'):
-        await client.setSetPoint(value)
-    elif (varOPC == 'ki'):
-        await client.setKi(value)
-    elif (varOPC == 'kp'):
-        await client.setKp(value)
-    elif (varOPC == 'mode'):
-        await client.setMode(value)
-    elif (varOPC == 'voltage'):
-        await client.setVoltage(value)    
+        if (varOPC == 'setPoint'):
+            await client.setSetPoint(value)
+        elif (varOPC == 'ki'):
+            await client.setKi(value)
+        elif (varOPC == 'kp'):
+            await client.setKp(value)
+        elif (varOPC == 'mode'):
+            await client.setMode(value)
+        elif (varOPC == 'voltage'):
+            await client.setVoltage(value)    
 
-    await client.disconnect()
+        await client.disconnect()
+    except (ConnectionError, ua.UaError):
+        response = HttpResponse()
+        response.status_code = 500
+        return response
 
 async def setOPCSetPoint(request):
     await setValue('setPoint', float(request.body))
