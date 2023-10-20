@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from ClientOPC.OPCClientUA import OPCClientUA
 
 # Create your views here.
+def downloadPage(request):
+    return render(request, "FileManager/downloads.html")
+
 async def getHistoryData(variable : str) -> dict:
     client = OPCClientUA()
     await client.connect()
