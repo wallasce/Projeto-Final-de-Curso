@@ -16,23 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ihm.views import Supervisory
-from ClientOPC.views import getOPCValues, setOPCSetPoint, setOPCKi, setOPCKp, setOPCMode, setOPCVoltage
-from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage, downloadPage
+
 from Charts.views import lineChartJson
+from ClientOPC.views import getOPCValues, setOPCSetPoint, setOPCKi, setOPCKp, setOPCMode, setOPCVoltage
+from ContentPage.views import homePage, helpPage
+from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage, downloadPage
+from ihm.views import Supervisory
 
 urlpatterns = [
+    path("", homePage, name = 'homePage'),
     path("admin/", admin.site.urls),
-    path("", Supervisory),
+    path("download", downloadPage, name = 'downloadPage'),
+    path("help", helpPage, name = 'helpPage'),
+    path("hmi", Supervisory, name = 'Supervisory'),
+    path('chartJSON', lineChartJson, name='line_chart_json'),
     path("ajax/getOPCValues", getOPCValues, name = 'getOPCValues'),
-    path("ajax/setOPCSetPoint", setOPCSetPoint, name = 'setOPCSetPoint'),
     path("ajax/setOPCKi", setOPCKi, name = 'setOPCKi'),
     path("ajax/setOPCKp", setOPCKp, name = 'setOPCKp'),
     path("ajax/setOPCMode", setOPCMode, name = 'setOPCMode'),
+    path("ajax/setOPCSetPoint", setOPCSetPoint, name = 'setOPCSetPoint'),
     path("ajax/setOPCVoltage", setOPCVoltage, name = 'setOPCVoltage'),
-    path("download", downloadPage, name = 'downloadPage'),
-    path("file/temperature", getHistoryTemperature, name = 'getHistoryTemperature'),
     path("file/setPoint", getHistorySetPoint, name = 'getHistorySetPoint'),
+    path("file/temperature", getHistoryTemperature, name = 'getHistoryTemperature'),
     path("file/voltage", getHistoryVoltage, name = 'getHistoryVoltage'),
-    path('chartJSON', lineChartJson, name='line_chart_json'),
 ]

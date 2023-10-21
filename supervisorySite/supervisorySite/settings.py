@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "Charts",
     "FileManager",
     "webSiteConfig",
+    "ContentPage"
 ]
 
 MIDDLEWARE = [
