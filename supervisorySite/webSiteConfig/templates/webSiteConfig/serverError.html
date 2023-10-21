@@ -1,9 +1,15 @@
-<html>
-    {% block Error %}
+<!DOCTYPE html>
+{% extends 'webSiteConfig/base.html' %}
+
+{% block title %} Download {% endblock %}
+
+{% block content %}
     <div id = 'error'>
         <h1> Unable to connect to the server. </h1>    
         <h3> The time has expired for the client to establish a connection to the server. </h3>
-        <h3> Are you certain that the server is allocated at the provided endpoint? </h3>
+        <h3> 
+            Are you certain that the server is allocated at the provided endpoint?
+            Go to settings and validate it.
+        </h3>
     </div>
-    {% endblock %}
-</html>
+{% endblock %}
