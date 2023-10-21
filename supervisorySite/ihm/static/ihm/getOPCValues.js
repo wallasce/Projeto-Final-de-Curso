@@ -19,9 +19,6 @@ function turnServerStatusOff() {
     disableElement('ki');
     disableElement('kp');
     disableElement('setPoint');
-    disableElement('downloadTemperature');
-    disableElement('downloadSetPoint');
-    disableElement('downloadVoltage');
 }
 
 function turnServerStatusOn() {
@@ -31,9 +28,6 @@ function turnServerStatusOn() {
     enableElement('ki');
     enableElement('kp');
     enableElement('setPoint');
-    enableElement('downloadTemperature');
-    enableElement('downloadSetPoint');
-    enableElement('downloadVoltage');
 }
 
 function changeInnerText(id, message, value) {
