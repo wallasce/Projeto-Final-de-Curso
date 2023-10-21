@@ -1,13 +1,16 @@
+<!DOCTYPE html>
+{% extends 'webSiteConfig/base.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title> {% block title %} Supervisory {% endblock %}</title>
+{% block title %} Supervisory {% endblock %}
+
+{% block headerTags%} 
     <script src="{% static 'ihm/getOPCValues.js' %}"></script>
     <link rel = "stylesheet" href="{% static 'ihm/pageStyle.css' %}">
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <div id = "header">
         <h1>Caixa Termoelétricamente Controlada</h1>
     </div>
@@ -53,12 +56,11 @@
         </form>
     </div>
     {% endblock %}
-    
+
     {% csrf_token %}
 
     {% block Chart %}
         {% include 'Charts/lineChart.html' %}
     {% endblock %}
     <script src="{% static 'ihm/setOPCValues.js' %}"></script>
-</body>
-</html>
+{% endblock %}
