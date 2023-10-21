@@ -19,15 +19,12 @@
         Server Status Connection 🟢
     </div> 
 
-    {% block sensor %}
     <div id = 'block-sensor'>
         <h2> Sensors </h2>
         <h3 id = 'temperature'> Temperature: {{ temperature }}</h3>
         <h3 id = 'voltageSensor'> Voltage: {{ voltage }}</h3>
     </div>
-    {% endblock %}
 
-    {% block mode%}
     <div id = 'block-mode'>
         <h3>
             <form id = 'modeForm'>
@@ -35,9 +32,7 @@
             </form>
         </h3>
     </div>
-    {% endblock %}
 
-    {% block manual%}
     <div id = 'block-manual'>
         <h3>
             <form>
@@ -45,9 +40,7 @@
             </form>
         </h3>
     </div>
-    {% endblock %}
 
-    {% block controller%}
     <div id = 'block-controller'>
         <form>
             <table>
@@ -55,12 +48,10 @@
             </table>
         </form>
     </div>
-    {% endblock %}
 
     {% csrf_token %}
 
-    {% block Chart %}
-        {% include 'Charts/lineChart.html' %}
-    {% endblock %}
+    {% include 'Charts/lineChart.html' %}
+    
     <script src="{% static 'ihm/setOPCValues.js' %}"></script>
 {% endblock %}
