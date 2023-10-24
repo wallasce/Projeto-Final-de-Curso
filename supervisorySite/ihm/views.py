@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import sys
 import os
 
@@ -28,7 +28,7 @@ async def Supervisory(request):
 
         await client.disconnect()  # Throws a exception if connection is lost
     except (ConnectionError, ua.UaError):
-        return render(request, "webSiteConfig/serverError.html")
+        return redirect("/error")
              
     controllerForm = ControllerForm()
     modeForm = ModeForm()

@@ -23,11 +23,13 @@ from ContentPage.views import homePage, helpPage
 from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage, downloadPage
 from ihm.views import Supervisory
 from Settings.views import ChangeEndPoint
+from webSiteConfig.views import errorPage
 
 urlpatterns = [
     path("", homePage, name = 'homePage'),
     path("admin/", admin.site.urls),
     path("download", downloadPage, name = 'downloadPage'),
+    path("error", errorPage, name = 'errorPage'),
     path("help", helpPage, name = 'helpPage'),
     path("hmi", Supervisory, name = 'Supervisory'),
     path("settings", ChangeEndPoint, name = 'ChangeEndPoint'),
