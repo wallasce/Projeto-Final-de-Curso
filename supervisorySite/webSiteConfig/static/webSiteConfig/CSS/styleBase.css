@@ -1,5 +1,14 @@
+.menu {
+    margin-bottom: 50px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-bottom: 20px;
+    z-index: 999;
+}
+
 .content {
-    margin: 0 50px;
+    margin: 50px 50px 0px 50px;
     padding-bottom: 8rem;
 }
 
@@ -12,4 +21,18 @@ body {
     min-height: 100vh;
     text-align: left;
     position: relative;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 8rem;
+
+    width: 100%;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.copyright {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding-bottom: 13px !important;
 }

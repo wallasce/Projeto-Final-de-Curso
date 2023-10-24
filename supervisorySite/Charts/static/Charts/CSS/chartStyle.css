@@ -2,8 +2,9 @@
     height:80vh; 
     width:80vw;
     
-    margin: 0 auto; 
+    margin: 20px auto; 
     position: relative; 
+    z-index: 1;
 }
 
 #temperatureSetPointChart {
