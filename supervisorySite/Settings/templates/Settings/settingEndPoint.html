@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'webSiteConfig/base.html' %}
+
+{% load static %}
+
+{% block headerTags%} 
+    <link rel = "stylesheet" href="{% static 'Settings/Style.css' %}">
+{% endblock %}
+
+
+{% block title %} Settings {% endblock %}
+
+{% block content %}
+    <h1> Change the EndPoint </h1>
+    
+    <form id="formEndPoint" method="post">
+        {{ form }}
+        {% csrf_token %}
+        <button id="saveEndPoint" type="submit">Save</button>
+    </form>
+
+    {% for data in endPoint %}
+        <br>
+        <p> The Client OPC will try to connect on <b>{{ data.ipAddress }}:{{ data.port }}</b>
+    {% endfor %}
+    
+{% endblock %}

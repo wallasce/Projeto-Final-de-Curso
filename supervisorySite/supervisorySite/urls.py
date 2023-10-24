@@ -22,6 +22,7 @@ from ClientOPC.views import getOPCValues, setOPCSetPoint, setOPCKi, setOPCKp, se
 from ContentPage.views import homePage, helpPage
 from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage, downloadPage
 from ihm.views import Supervisory
+from Settings.views import ChangeEndPoint
 
 urlpatterns = [
     path("", homePage, name = 'homePage'),
@@ -29,6 +30,7 @@ urlpatterns = [
     path("download", downloadPage, name = 'downloadPage'),
     path("help", helpPage, name = 'helpPage'),
     path("hmi", Supervisory, name = 'Supervisory'),
+    path("settings", ChangeEndPoint, name = 'ChangeEndPoint'),
     path('chartJSON', lineChartJson, name='line_chart_json'),
     path("ajax/getOPCValues", getOPCValues, name = 'getOPCValues'),
     path("ajax/setOPCKi", setOPCKi, name = 'setOPCKi'),
