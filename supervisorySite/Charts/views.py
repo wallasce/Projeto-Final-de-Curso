@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from ClientOPC.OPCClientUA import OPCClientUA
 from asyncua import ua
 import json
+from Settings.getEndPoint import getEndPoint
 
 # Create your views here.
 async def lineChartJson(request) :
@@ -11,7 +12,9 @@ async def lineChartJson(request) :
         return  [eval(file) for file in data[0:len(data) - 1]]
     
     try:
-        client = OPCClientUA()
+        endPoint = await getEndPoint()
+        
+        client = OPCClientUA(endPoint) if endPoint else OPCClientUA()
         await client.connect()
         temperature = await client.getHistoryDataFrom('temperature')    
         setPoint = await client.getHistoryDataFrom('setPoint')    

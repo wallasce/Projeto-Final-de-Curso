@@ -9,11 +9,14 @@ from asyncua import ua
 from Controller.form import ControllerForm
 from .forms.ihm.ModeForm import ModeForm
 from .forms.ihm.VoltageForm import VoltageForm
+from Settings.getEndPoint import getEndPoint
 
 # Create your views here.
 async def Supervisory(request):   
     try:
-        client = OPCClientUA()
+        endPoint = await getEndPoint()
+        
+        client = OPCClientUA(endPoint) if endPoint else OPCClientUA()
         await client.connect()
 
         temperature = await client.getTemperature()

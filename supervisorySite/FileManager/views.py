@@ -2,13 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from ClientOPC.OPCClientUA import OPCClientUA
+from Settings.getEndPoint import getEndPoint
 
 # Create your views here.
 def downloadPage(request):
     return render(request, "FileManager/downloads.html")
 
 async def getHistoryData(variable : str) -> dict:
-    client = OPCClientUA()
+    endPoint = await getEndPoint()
+        
+    client = OPCClientUA(endPoint) if endPoint else OPCClientUA()
     await client.connect()
     historyData = await client.getHistoryDataFrom(variable)    
     await client.disconnect()

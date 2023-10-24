@@ -3,11 +3,14 @@ import json
 
 from .OPCClientUA import OPCClientUA
 from asyncua import ua
+from Settings.getEndPoint import getEndPoint
 
 # Create your views here.
 async def getOPCValues(request):
     try:
-        client = OPCClientUA()
+        endPoint = await getEndPoint()
+        
+        client = OPCClientUA(endPoint) if endPoint else OPCClientUA()
         await client.connect()
 
         temperature = await client.getTemperature()
@@ -36,7 +39,9 @@ async def getOPCValues(request):
 
 async def setValue(varOPC : str, value : float) -> None:
     try:
-        client = OPCClientUA()
+        endPoint = await getEndPoint()
+        
+        client = OPCClientUA(endPoint) if endPoint else OPCClientUA()
         await client.connect()
 
         if (varOPC == 'setPoint'):
