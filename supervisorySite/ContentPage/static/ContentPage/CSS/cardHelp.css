@@ -1,0 +1,11 @@
+.card {
+    background-color: rgba(33, 37, 41);
+    color: rgba(255, 255, 255, 0.55);
+    width: 100%;
+    text-align: justify;
+}
+
+.card i {
+    margin: 2rem 0rem 2rem 13rem;
+    font-size: 6em;
+}

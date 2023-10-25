@@ -1,7 +1,31 @@
 <!DOCTYPE html>
 {% extends 'webSiteConfig/base.html' %}
 
+{% load static %}
+
+{% block headerTags%} 
+    <link rel = "stylesheet" href="{% static 'ContentPage/CSS/cardHelp.css' %}">
+{% endblock %}
+
 {% block title %} Help {% endblock %}
 
 {% block content %}
+    <h2>Navigating with Ease: User Guide for Our Website</h2>
+    <p> Welcome to our comprehensive user guide! Here, you will find all the necessary information to explore and make the most of our website. From navigation tips to advanced features, we are here to make your experience perfect. Start exploring now and discover how to master all the functionalities of our site. </p>
+    
+    {% for contentHelp in contents %}
+        <div class="card mb-5">
+            <div class="row g-0">
+            <div class="col-md-5">
+                <i class = "{{ contentHelp.fontAwesome }}"></i>
+            </div>
+            <div class="col-md-5">
+                <div class="card-body">
+                <h5 class="card-title text-white"> {{ contentHelp.title }} </h5>
+                <p class="card-text"> {{ contentHelp.body }} </p>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
