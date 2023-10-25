@@ -8,6 +8,6 @@ body {
 #serverStatus {
     text-align: right;
     font-size: medium;
-    line-height: 1.2em;
-    margin: 5px 0;
+    line-height: 1.2rem;
+    margin: 0.5rem 0;
 }
