@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 {% extends 'webSiteConfig/base.html' %}
 
+{% load static %}
+
+{% block headerTags%} 
+    <link rel = "stylesheet" href="{% static 'FileManager\CSS\tableStyle.css' %}">
+{% endblock %}
+
 {% block title %} Download {% endblock %}
 
 {% block content %}

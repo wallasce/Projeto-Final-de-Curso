@@ -1,0 +1,7 @@
+th {
+    vertical-align: middle;
+}
+
+tbody, thead, tr, td, th {
+    border-width: 0.2rem;
+}
