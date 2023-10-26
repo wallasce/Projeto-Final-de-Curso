@@ -32,8 +32,9 @@ function enableElement(id) {
 
 // Change the Choice Field Mode.
 function changeModeSelect(value) {
-    formMode = document.getElementById("mode");
+    formMode = document.getElementById("modeForm");
     option = formMode.querySelector("input[value=" + value + "]")
+    console.log(option)
     option.checked = true;
 
     if (value == 'A') {
