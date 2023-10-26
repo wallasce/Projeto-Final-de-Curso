@@ -28,21 +28,30 @@ async def getHistoryData(variable : str) -> dict:
     return historyData
 
 async def getHistoryTemperature(request):
-    fileData = await getHistoryData('temperature')
+    try:
+        fileData = await getHistoryData('temperature')
+    except (ConnectionError, ua.UaError):
+        return redirect("/error")
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="HistoryTemperature.txt"'
     return response
 
 async def getHistorySetPoint(request):
-    fileData = await getHistoryData('setPoint')
+    try:
+        fileData = await getHistoryData('setPoint')
+    except (ConnectionError, ua.UaError):
+        return redirect("/error")
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="HistorySetPoint.txt"'
     return response
 
 async def getHistoryVoltage(request):
-    fileData = await getHistoryData('voltage')
+    try:
+        fileData = await getHistoryData('voltage')
+    except (ConnectionError, ua.UaError):
+        return redirect("/error")
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="HistoryVoltage.txt"'
