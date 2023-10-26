@@ -2,32 +2,13 @@ function ajax() {
     var xhhtp = new XMLHttpRequest();
     xhhtp.onreadystatechange = function () {
         if (this.status == 200 && this.response != "") {
-            turnServerStatusOn()
             updateValues(this);
         }else if (this.status == 500){
-            turnServerStatusOff()
+            window.location.href = 'error'
         }
     }
     xhhtp.open("GET", "ajax/getOPCValues", true);
     xhhtp.send();
-}
-
-function turnServerStatusOff() {
-    document.getElementById('serverStatus').innerText = 'Server Status Connection 🔴'
-    disableForm('modeForm');
-    disableElement('voltage');
-    disableElement('ki');
-    disableElement('kp');
-    disableElement('setPoint');
-}
-
-function turnServerStatusOn() {
-    document.getElementById('serverStatus').innerText = 'Server Status Connection  🟢'
-    enableForm('modeForm');
-    enableElement('voltage');
-    enableElement('ki');
-    enableElement('kp');
-    enableElement('setPoint');
 }
 
 function changeInnerText(id, message, value) {
@@ -45,29 +26,9 @@ function disableElement(id) {
     document.getElementById(id).disabled = true
 }
 
-function disableForm(id) {
-    form = document.getElementById(id)
-    elements = form.elements
-
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].disabled = true
-    }
-}
-
-function enableForm(id) {
-    form = document.getElementById(id)
-    elements = form.elements
-
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].disabled = false
-    }
-}
-
-
 function enableElement(id) {
     document.getElementById(id).disabled = false
 }
-
 
 // Change the Choice Field Mode.
 function changeModeSelect(value) {
@@ -86,7 +47,6 @@ function changeModeSelect(value) {
         disableElement('kp');
         enableElement('voltage');
     }
-
 }
 
 function updateValues(response) {
