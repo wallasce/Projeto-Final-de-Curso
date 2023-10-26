@@ -1,3 +1,27 @@
+body {
+    background-image: url('../Image/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    color: black;
+    font-family: sans-serif, Arial, Helvetica;
+    min-height: 23.5rem;
+    position: relative;
+    text-align: left;
+}
+
+footer {
+    margin-top: 10rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+p {
+    text-align: justify;
+}
+
 .menu {
     position: fixed;
     top: 0;
@@ -6,28 +30,22 @@
 }
 
 .content {
-    margin: 3rem 3rem 0rem 3rem;
-    padding-bottom: 8rem;
-}
-
-body {
-    font-family: sans-serif, Arial, Helvetica;
-    color: black;
-    min-height: 100vh;
-    text-align: left;
-    position: relative;
+    border-style: solid;
+    border-radius: 1.5rem;
+    border-width: 0.1rem;
+    background-color:  rgba(255, 255, 255, 0.55);
+    margin: 5rem 10rem 0rem 10rem;
+    padding: 1rem 4rem 1rem 4rem;
 }
 
 .footer {
-    position: absolute;
+    color: rgba(255, 255, 255, 0.55);
     bottom: 0;
     height: 8rem;
-
+    position: absolute;
     width: 100%;
-    color: rgba(255, 255, 255, 0.55);
 }
 
 .copyright {
     background-color: rgba(0, 0, 0, 0.2);
-    padding-bottom: 1rem !important;
 }

@@ -3,12 +3,13 @@ from django import forms
 class ModeForm(forms.Form):
     CHOICES = [
         ('M', 'Manual'),
-        ('A', 'Automático')
+        ('A', 'Automatic')
     ]
     mode = forms.ChoiceField(
-        widget = forms.RadioSelect,
+        widget = forms.RadioSelect(),
         choices = CHOICES,
+        label='',
     )
     mode.widget.attrs.update({
-            'id' : 'mode',
-        })
+        'id' : 'mode',
+    })

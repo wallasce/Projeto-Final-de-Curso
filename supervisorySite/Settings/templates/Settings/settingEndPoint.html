@@ -11,12 +11,12 @@
 {% block title %} Settings {% endblock %}
 
 {% block content %}
-    <h1> Change the EndPoint </h1>
+    <h2> Change the EndPoint </h2>
     
     <form id="formEndPoint" method="post">
         {{ form }}
         {% csrf_token %}
-        <button id="saveEndPoint" type="submit">Save</button>
+        <button id="saveEndPoint" class="btn btn-dark" type="submit">Save</button>
     </form>
 
     {% for data in endPoint %}

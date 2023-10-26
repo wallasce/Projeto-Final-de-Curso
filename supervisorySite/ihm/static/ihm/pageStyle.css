@@ -1,8 +1,31 @@
-body {
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
+p {
+    margin: 0!important;
+}
+
+th {
+    font-weight: normal;
+}
+
+.card {
+    background-color: rgba(33, 37, 41);
+    color: rgba(255, 255, 255, 0.55);
+    padding: 0rem 1rem 2rem 1rem;
+    width: 100%;
+    text-align: justify;
+}
+
+.card-title {
+    padding: 1rem;
+}
+
+.manual {
+    margin-left: 6rem;
+}
+
+.form-check-inline {
+    margin-left: 11.5rem;
+    margin-right: 6.5rem;
+    padding-left: 0rem;
 }
 
 #serverStatus {

@@ -19,39 +19,55 @@
         Server Status Connection 🟢
     </div> 
 
-    <div id = 'block-sensor'>
-        <h2> Sensors </h2>
-        <h3 id = 'temperature'> Temperature: {{ temperature }}</h3>
-        <h3 id = 'voltageSensor'> Voltage: {{ voltage }}</h3>
+    <div class="card sensors-card bg-dark mb-5">
+        <h3 class="card-title text-white">Sensors</h3>
+        <div class="card-body">
+            <p class="lead" id = 'temperature'> Temperature: {{ temperature }}</h3>
+            <p class="lead" id = 'voltageSensor'> Voltage: {{ voltage }}</h3>
+        </div>
     </div>
 
-    <div id = 'block-mode'>
-        <h3>
-            <form id = 'modeForm'>
-                {{ modeForm }}
+    <div class="card mb-5">
+        <h3 class="card-title text-white">PID Configuration</h3>
+        <div class="row g-0">
+            <form id = 'modeForm' class="lead">
+                {% for form in modeForm %}
+                    <div class="form-check">
+                        {% for choice in form %}
+                            <div class="form-check form-check-inline">
+                                {{ choice }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
             </form>
-        </h3>
-    </div>
+        </div>
 
-    <div id = 'block-manual'>
-        <h3>
-            <form>
-                {{ voltageForm }}
-            </form>
-        </h3>
+        <div class="row g-0">
+            <div class="manual col-md-5">
+                <form>
+                    <table>
+                        {{ voltageForm }}
+                    </table>
+                </form>
+            </div>
+            <div class="automatic col-md-5">
+                    <form>
+                        <table>
+                            {{ controllerForm }}
+                        </table>
+                    </form>
+            </div>
+        </div>
     </div>
-
-    <div id = 'block-controller'>
-        <form>
-            <table>
-                {{ controllerForm }}
-            </table>
-        </form>
-    </div>
-
     {% csrf_token %}
 
-    {% include 'Charts/lineChart.html' %}
+    <div class="card chart-card mb-5">
+        <h3 class="card-title text-white">Chart</h3>
+        <div class="card-body">
+          {% include 'Charts/lineChart.html' %}
+        </div>
+    </div>
     
     <script src="{% static 'ihm/setOPCValues.js' %}"></script>
 {% endblock %}

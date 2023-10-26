@@ -1,7 +1,13 @@
-th {
-    vertical-align: middle;
+tbody, thead, tr, td, th {
+    border-color:  rgba(255, 255, 255, 0.55);
+    border-width: 0.1   rem;
 }
 
-tbody, thead, tr, td, th {
-    border-width: 0.2rem;
+td {
+    text-align: center;
+}
+
+th {
+    font-weight: normal;
+    vertical-align: middle;
 }
