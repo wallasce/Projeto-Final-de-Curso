@@ -29,7 +29,7 @@ function addAjxaOnChangeRadioForm(id, ajaxFunction) {
     }
 }
 
-addAjxaOnChangeRadioForm('mode', 'ajax/setOPCMode')
+addAjxaOnChangeRadioForm('modeForm', 'ajax/setOPCMode')
 addEventsToInput('setPoint', 'ajax/setOPCSetPoint');
 addEventsToInput('ki', 'ajax/setOPCKi')
 addEventsToInput('kp', 'ajax/setOPCKp')

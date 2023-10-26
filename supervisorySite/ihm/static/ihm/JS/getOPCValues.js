@@ -34,7 +34,6 @@ function enableElement(id) {
 function changeModeSelect(value) {
     formMode = document.getElementById("modeForm");
     option = formMode.querySelector("input[value=" + value + "]")
-    console.log(option)
     option.checked = true;
 
     if (value == 'A') {
