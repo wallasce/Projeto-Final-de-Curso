@@ -26,5 +26,6 @@ async def main():
             print("Kp: " + str(await OPCServerUA.kp.read_value()))
             print("Mode: " + str(await OPCServerUA.mode.read_value()))
             print("Voltage: " + str(await OPCServerUA.voltage.read_value()))
+            count += 1
 
 asyncio.run(main())
