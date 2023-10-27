@@ -1,0 +1,19 @@
+.hmi-card .card {
+    background-color: rgba(33, 37, 41);
+    border-radius: 0 3rem 0 3rem;
+    box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.8);
+    color: rgba(255, 255, 255, 0.55);
+    min-height: 18rem;
+    text-align: justify;
+    width: 100%;
+}
+
+.hmi-card .card i {
+    margin: 1rem 5rem 0rem 6rem;
+    font-size: 3rem;
+}
+
+.hmi-card .card-title {
+    color:rgba(255, 255, 255);
+    min-height: 4rem;
+}

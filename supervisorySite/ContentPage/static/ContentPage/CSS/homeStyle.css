@@ -1,0 +1,21 @@
+body {
+    min-height: 25.1rem;
+}
+
+h1 {
+    margin-bottom: 2rem;
+}
+
+.content {
+    border-style: none;
+    margin: 3.5rem 0rem 0rem 0rem !important;
+    padding: 1rem 0rem 1rem 0rem !important;
+}
+
+.container-fluid {
+    padding-bottom: 1rem;
+}
+
+.row {
+    padding: 0rem 7rem 0rem 7rem;
+}
