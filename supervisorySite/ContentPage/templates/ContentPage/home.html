@@ -11,12 +11,12 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <div class="hmi-card container-fluid">
+    <div class="hmi-container container-fluid">
         <h1> Explore the HMI Interface for Total Control!</h1>
         <div class="row">
             {% for card in cards %}
                 <div class="col">
-                    <div class="card mb-3">
+                    <div class="card hmi-card mb-3">
                         <i class = "{{ card.fontAwesome }}"></i>
                         <div class="card-body">
                         <h5 class="card-title">{{ card.title }}</h5>
@@ -28,12 +28,12 @@
         </div>
     </div>
 
-    <div class="extra-card container-fluid">
+    <div class="extra-container container-fluid">
         <h1> Explore Our Additional Features </h1>
         <div class="row">
             {% for card in extraCards %}
                 <div class="col">
-                    <div class="card mb-3">
+                    <div class="card extra-card mb-3">
                         <i class = "{{ card.fontAwesome }}"></i>
                         <div class="card-body">
                         <h5 class="card-title">{{ card.title }}</h5>
