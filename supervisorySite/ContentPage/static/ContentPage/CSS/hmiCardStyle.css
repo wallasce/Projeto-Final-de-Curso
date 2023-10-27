@@ -1,5 +1,6 @@
 .hmi-container {
     background-color: rgba(255, 255, 255);
+    padding-top: 1rem;
 }
 
 .hmi-container .hmi-card {
