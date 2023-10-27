@@ -1,0 +1,28 @@
+
+.carousel-item {
+    background-color: rgba(31, 55, 72);
+    color: rgba(255, 255, 255);
+    min-height: 36.2rem;
+}
+
+.carousel-item i {
+    font-size: 20rem;
+    margin: 8rem 0rem 0rem 5rem;
+}
+
+.title {
+    text-shadow: 0.6rem 0.6rem 1rem rgba(0, 0, 0, 0.8);
+    font-family: New Century Schoolbook, TeX Gyre Schola, serif;
+}
+
+.carousel-container-1 .title {
+    margin-top: 11.6rem;
+}
+
+.carousel-container-3 .title, .carousel-container-2 .title {
+    margin-top: 8.7rem;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5% !important;
+}
