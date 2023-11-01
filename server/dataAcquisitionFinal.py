@@ -26,8 +26,8 @@ class dataAcquisition:
         self.setPoint.append(data[5])
         self.voltage.append(data[6])
 
-        if (mode != data[7]) :
-            mode = data[7]
+        if (self.mode != data[7]) :
+            self.mode = data[7]
         self.mutex.release()
 
     # Getters.
@@ -63,7 +63,7 @@ class dataAcquisition:
 
     # Remove first decimal place of absolute value.
     # Returns a String.
-    def removeFirstDecimalPlace(value) -> str:
+    def removeFirstDecimalPlace(self, value) -> str:
         value = int(abs(value) * 10)
         return str(value)
 
