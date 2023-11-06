@@ -62,7 +62,7 @@ class OPCServer:
 
         # Add temperature to historic.
         varToHistorize = [self.temperature, self.voltage, self.setPoint]
-        await self.server.historize_node_data_change(varToHistorize, period=None, count=100)
+        await self.server.historize_node_data_change(varToHistorize, period=None, count=1200)
 
     async def createFunctions(self) -> None:
         await self.box.add_method(self.idx, "getHistoryData", getHistoryData, [], [])

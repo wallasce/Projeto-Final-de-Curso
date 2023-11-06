@@ -17,17 +17,17 @@ async def thOPCServer():
             await asyncio.sleep(1)
 
             # Try update mode value in OPC server, else update the value in Arduino
-            if not (await OPCServerUA.setMode(dataManager.getLastMode)):
+            if not (await OPCServerUA.setMode(dataManager.getLastMode())):
                 dataManager.setMode()
                 await OPCServerUA.updatePreviousModeValue()
 
             # Try update SetPoint value in OPC server, else update the value in Arduino
-            if not (await OPCServerUA.setSetPoint(dataManager.getLastSetPoint)):
+            if not (await OPCServerUA.setSetPoint(dataManager.getLastSetPoint())):
                 dataManager.setSetPoint(await OPCServerUA.getSetPoint())
                 await OPCServerUA.updatePreviousSetPointValue()
 
-            await OPCServerUA.setTemperature(dataManager.getLastTemperature)
-            await OPCServerUA.setVoltage(dataManager.getLastVoltage)
+            await OPCServerUA.setTemperature(dataManager.getLastTemperature())
+            await OPCServerUA.setVoltage(dataManager.getLastVoltage())
 
             # Checks if client update controller values.
             if (await OPCServerUA.controllerChange()):
