@@ -90,7 +90,8 @@ class OPCServer:
             return False
     
     async def setTemperature(self, temperature) -> None:
-        await self.temperature.write_value(temperature)
+        if(await self.mode.read_value() == 'A'):
+            await self.temperature.write_value(temperature)
 
     # Only update the value if the client did't update this value.
     # Case don't update returns false
