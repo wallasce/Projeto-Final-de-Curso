@@ -19,6 +19,10 @@ class dataAcquisition:
     # Read and Decode Data from Serial
     def readData(self) -> None:
         data = self.serialConection.readline()
+
+        if b'endereco do sensor' in data:
+            raise Exception('Error to find some of the sensors')
+
         data = data.decode().split( )
         
         self.mutex.acquire()
