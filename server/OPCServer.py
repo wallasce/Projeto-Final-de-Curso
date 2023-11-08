@@ -18,7 +18,8 @@ def getHistoryData(parent, table : str) -> dict:
 
 class OPCServer:
     #hostname -I
-    endpoint = "opc.tcp://192.168.0.2:4840/freeopcua/server/"
+    #endpoint = "opc.tcp://192.168.0.2:4840/freeopcua/server/"
+    endpoint = "opc.tcp://0.0.0.0:4840/freeopcua/server/"
     uri = "Camera Termoeletricamente Controlada"
 
     def __init__(self) -> None:
@@ -90,8 +91,7 @@ class OPCServer:
             return False
     
     async def setTemperature(self, temperature) -> None:
-        if(await self.mode.read_value() == 'A'):
-            await self.temperature.write_value(temperature)
+        await self.temperature.write_value(temperature)
 
     # Only update the value if the client did't update this value.
     # Case don't update returns false
@@ -103,8 +103,12 @@ class OPCServer:
         else:
             return False
         
-    async def setVoltage(self, voltage) -> None:
-        await self.voltage.write_value(voltage)
+    # The server only can update voltage in automatic mode.
+    async def setVoltage(self, voltage) -> bool:
+        if(await self.mode.read_value() == 'A'):
+            await self.voltage.write_value(voltage)
+            return True
+        return False
 
     async def updatePreviousController(self) -> None:
         self.previousKi = await self.ki.read_value()
