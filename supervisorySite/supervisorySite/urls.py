@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from Charts.views import lineChartJson
+from Charts.views import lineChartJson, ChartFullPage
 from ClientOPC.views import getOPCValues, setOPCSetPoint, setOPCKi, setOPCKp, setOPCMode, setOPCVoltage
 from ContentPage.views import homePage, helpPage
 from FileManager.views import getHistoryTemperature, getHistorySetPoint, getHistoryVoltage, downloadPage
@@ -28,6 +28,7 @@ from webSiteConfig.views import errorPage
 urlpatterns = [
     path("", homePage, name = 'homePage'),
     path("admin/", admin.site.urls),
+    path("chart", ChartFullPage, name = 'chartFullPage'),
     path("download", downloadPage, name = 'downloadPage'),
     path("error", errorPage, name = 'errorPage'),
     path("help", helpPage, name = 'helpPage'),

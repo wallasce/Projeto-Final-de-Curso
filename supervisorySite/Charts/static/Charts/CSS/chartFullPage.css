@@ -1,0 +1,17 @@
+.chart-container {
+    height:35rem; 
+    width:60rem;
+    
+    margin: 0rem auto; 
+    position: relative; 
+    z-index: 1;
+}
+
+.content {
+    padding: 1rem;
+    min-height: 40rem;
+}
+
+#temperatureSetPointChart {
+    background-color: rgba(255, 255, 255, 0.8);
+}

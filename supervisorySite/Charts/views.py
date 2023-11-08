@@ -31,6 +31,11 @@ async def lineChartJson(request) :
     temperature = [data[1] for data in temperature]
     setPoint = [data[1] for data in setPoint]
 
+    if(len(labels) > 100):
+        labels = labels[-100:]
+        temperature = temperature[-100:]
+        setPoint = setPoint[-100:]
+
     response = json.dumps({
         'type' : 'line',
         'data' : {
@@ -59,3 +64,6 @@ async def lineChartJson(request) :
     })
 
     return HttpResponse(response)
+
+def ChartFullPage(request):
+    return render(request, "Charts/fullPageChart.html")

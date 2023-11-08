@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends 'webSiteConfig/base.html' %}
+
+{% load static %}
+
+{% block headerTags%} 
+    <link rel = "stylesheet" href="{% static 'Charts\CSS\chartFullPage.css' %}">
+{% endblock %}
+
+{% block title %} Chart {% endblock %}
+
+{% block content %}
+    <div class="chart-container">
+        <h3>Chart</h3>
+        <canvas id="temperatureSetPointChart"></canvas>
+        <!--Do not delete the line above, this impact Charts\JS\chart.js-->
+        <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+        <script src="{% static 'Charts\JS\chart.js' %}"></script>
+    </div>
+{% endblock %}
