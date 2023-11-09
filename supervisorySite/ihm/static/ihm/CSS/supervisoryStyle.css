@@ -19,6 +19,10 @@ th {
     padding: 1rem;
 }
 
+.linkFullChart {
+    text-align: center;
+}
+
 .manual {
     margin-left: 6rem;
 }

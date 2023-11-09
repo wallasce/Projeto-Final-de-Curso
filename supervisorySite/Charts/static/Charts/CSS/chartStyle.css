@@ -2,7 +2,7 @@
     height:20rem; 
     width:50rem;
     
-    margin: 0rem auto; 
+    margin: 0rem auto 1rem auto; 
     position: relative; 
     z-index: 1;
 }
