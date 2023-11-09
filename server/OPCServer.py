@@ -71,51 +71,36 @@ class OPCServer:
     async def getSetPoint(self) -> float:
         return await self.setPoint.read_value()
     
+    async def getMode(self) -> str:
+        return (await self.mode.read_value())
+    
+    async def getVoltage(self) -> float:
+        return (await self.voltage.read_value())
+    
     # Return a tuple with (ki, kp).
     async def getController(self) -> tuple:
         return (await self.ki.read_value(), await self.kp.read_value())
-    
-    # Check if client change the Controller value.
-    async def controllerChange(self, ki, kp) -> bool:
-        return not (self.previousKi == await self.ki.read_value() and
-                self.previousKP == await self.kp.read_value())
 
     # Only update the value if the client did't update this value.
     # Case don't update returns false
-    async def setMode(self, mode) -> bool:
-        if (self.previousMode == await self.mode.get_value()):
-            await self.mode.write_value(mode)
-            self.previousMode = mode
-            return True
-        else:
-            return False
+    async def setMode(self, mode) -> None:
+        await self.mode.write_value(mode)
     
     async def setTemperature(self, temperature) -> None:
         await self.temperature.write_value(temperature)
 
     # Only update the value if the client did't update this value.
     # Case don't update returns false
-    async def setSetPoint(self, setPoint) -> bool:
-        if (self.previousSetPoint == await self.setPoint.get_value()):
-            await self.setPoint.write_value(setPoint)
-            self.previousSetPoint = setPoint
-            return True
-        else:
-            return False
+    async def setSetPoint(self, setPoint) -> None:
+        await self.setPoint.write_value(setPoint)
         
-    # The server only can update voltage in automatic mode.
-    async def setVoltage(self, voltage) -> bool:
-        if(await self.mode.read_value() == 'A'):
-            await self.voltage.write_value(voltage)
-            return True
-        return False
+    async def setVoltage(self, voltage) -> None:
+        await self.voltage.write_value(voltage)
 
-    async def updatePreviousController(self) -> None:
-        self.previousKi = await self.ki.read_value()
-        self.previousKp = await self.kp.read_value()
-
-    async def updatePreviousModeValue(self) -> None:
-        self.previousMode = await self.mode.read_value()
-
-    async def updatePreviousSetPointValue(self) -> None:
-        self.previousSetPoint = await self.setPoint.read_value()
+    async def print(self) -> None:
+        print("Server OPC: ")
+        print("setPoint: " + str(await self.setPoint.read_value()))
+        print("Ki: " + str(await self.ki.read_value()))
+        print("Kp: " + str(await self.kp.read_value()))
+        print("Mode: " + str(await self.mode.read_value()))
+        print("Voltage: " + str(await self.voltage.read_value()))

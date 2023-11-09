@@ -11,7 +11,6 @@ class dataAcquisition:
     # Constructor
     def __init__(self) -> None:
         self.serialConection = serial.Serial(self.port, 9600)
-        self.mutex = Lock()
 
     def close(self) -> None:
         self.serialConection.close()
@@ -25,40 +24,25 @@ class dataAcquisition:
 
         data = data.decode().split( )
         
-        self.mutex.acquire()
-        self.temperature.append(data[4])
-        self.setPoint.append(data[5])
-        self.voltage.append(data[6])
+        self.temperature = float(data[4])
+        self.setPoint = float(data[5])
+        self.voltage = float(data[6])
 
         if (self.mode != data[7]) :
             self.mode = data[7]
-        self.mutex.release()
 
     # Getters.
-    def getLastTemperature(self) -> float:
-        self.mutex.acquire()
-        value = self.temperature[-1]
-        self.mutex.release()
-        return value
+    def getTemperature(self) -> float:
+        return self.temperature
 
+    def getMode(self) -> float:
+        return self.mode
     
-    def getLastMode(self) -> float:
-        self.mutex.acquire()
-        value = self.mode[-1]
-        self.mutex.release()
-        return value
+    def getSetPoint(self) -> float:
+        return self.setPoint
     
-    def getLastSetPoint(self) -> float:
-        self.mutex.acquire()
-        value = self.setPoint[-1]
-        self.mutex.release()
-        return value
-    
-    def getLastVoltage(self) -> float:
-        self.mutex.acquire()
-        value = self.voltage[-1]
-        self.mutex.release()
-        return value
+    def getVoltage(self) -> float:
+        return self.voltage
     
     # Send to Arduino to change the Mode.
     def setMode(self) -> None:
@@ -80,7 +64,7 @@ class dataAcquisition:
         mesage = mesage.encode()
         self.serialConection.write(mesage)
 
-    def setController(self, kp, ki) -> None:
+    def setController(self, ki, kp) -> None:
         # Initial controller mesage standard.
         mesage = 'C'
         mesage = mesage + self.removeFirstDecimalPlace(kp)
@@ -90,3 +74,10 @@ class dataAcquisition:
 
         mesage = mesage.encode()
         self.serialConection.write(mesage)
+
+    def print(self) -> None:
+        print("Arduino Values: ")
+        print("setPoint: " + str(self.setPoint))
+        print("Mode: " + str(self.mode))
+        print("Temperature: " + str(self.temperature))
+        print("Voltage: " + str(self.voltage))
