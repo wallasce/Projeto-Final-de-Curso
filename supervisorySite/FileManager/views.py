@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from asyncua import ua
+from asyncio import TimeoutError
 
 from ClientOPC.OPCClientUA import OPCClientUA
 from Settings.getEndPoint import getEndPoint
@@ -12,7 +13,7 @@ async def downloadPage(request):
         client = OPCClientUA(endPoint) if endPoint else OPCClientUA()
         await client.connect()
         await client.disconnect()
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         return redirect("/error")
     
     return render(request, "FileManager/downloads.html")
@@ -30,7 +31,7 @@ async def getHistoryData(variable : str) -> dict:
 async def getHistoryTemperature(request):
     try:
         fileData = await getHistoryData('temperature')
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         return redirect("/error")
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
@@ -40,7 +41,7 @@ async def getHistoryTemperature(request):
 async def getHistorySetPoint(request):
     try:
         fileData = await getHistoryData('setPoint')
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         return redirect("/error")
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')
@@ -50,7 +51,7 @@ async def getHistorySetPoint(request):
 async def getHistoryVoltage(request):
     try:
         fileData = await getHistoryData('voltage')
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         return redirect("/error")
 
     response = HttpResponse(fileData, content_type='application/text charset=utf-8')

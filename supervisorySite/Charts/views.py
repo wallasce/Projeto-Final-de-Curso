@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from ClientOPC.OPCClientUA import OPCClientUA
 from asyncua import ua
+from asyncio import TimeoutError
 import json
 from Settings.getEndPoint import getEndPoint
 
@@ -19,7 +20,7 @@ async def lineChartJson(request) :
         temperature = await client.getHistoryDataFrom('temperature')    
         setPoint = await client.getHistoryDataFrom('setPoint')    
         await client.disconnect()
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         response = HttpResponse()
         response.status_code = 500
         return response

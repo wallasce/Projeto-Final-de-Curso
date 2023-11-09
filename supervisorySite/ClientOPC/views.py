@@ -3,6 +3,7 @@ import json
 
 from .OPCClientUA import OPCClientUA
 from asyncua import ua
+from asyncio import TimeoutError
 from Settings.getEndPoint import getEndPoint
 
 # Create your views here.
@@ -21,7 +22,7 @@ async def getOPCValues(request):
         kp = await client.getKp()
 
         await client.disconnect()
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         response = HttpResponse()
         response.status_code = 500
         return response
@@ -56,7 +57,7 @@ async def setValue(varOPC : str, value : float) -> None:
             await client.setVoltage(value)    
 
         await client.disconnect()
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         response = HttpResponse()
         response.status_code = 500
         return response

@@ -6,6 +6,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from ClientOPC.OPCClientUA import OPCClientUA
 from asyncua import ua
+from asyncio import TimeoutError
 from Controller.form import ControllerForm
 from .forms.ihm.ModeForm import ModeForm
 from .forms.ihm.VoltageForm import VoltageForm
@@ -27,7 +28,7 @@ async def Supervisory(request):
         kp = await client.getKp()
 
         await client.disconnect()  # Throws a exception if connection is lost
-    except (ConnectionError, ua.UaError):
+    except (ConnectionError, ua.UaError, TimeoutError):
         return redirect("/error")
              
     controllerForm = ControllerForm()
