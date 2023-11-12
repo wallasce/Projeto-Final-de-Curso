@@ -1,60 +1,46 @@
 import asyncio
-import threading
+import os
 
 from dataAcquisitionFinal import dataAcquisition
 from OPCServer import OPCServer
 
-# Global variables.
-global flag
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
 
-async def thOPCServer():
+async def main():
+    dataManager = dataAcquisition()
+
     OPCServerUA = OPCServer()
     await OPCServerUA.startServer()
     await OPCServerUA.createVariables()
-    
+    await OPCServerUA.createFunctions()
+
     async with OPCServerUA.server:
-        while (flag):
-            await asyncio.sleep(1)
+        while(True):
+            await asyncio.sleep(0.5)
 
-            # Try update mode value in OPC server, else update the value in Arduino
-            if not (await OPCServerUA.setMode(dataManager.getLastMode())):
-                dataManager.setMode()
-                await OPCServerUA.updatePreviousModeValue()
+            dataManager.readData()
 
-            # Try update SetPoint value in OPC server, else update the value in Arduino
-            if not (await OPCServerUA.setSetPoint(dataManager.getLastSetPoint())):
-                dataManager.setSetPoint(await OPCServerUA.getSetPoint())
-                await OPCServerUA.updatePreviousSetPointValue()
+            await OPCServerUA.setTemperature(dataManager.getTemperature())
 
-            await OPCServerUA.setTemperature(dataManager.getLastTemperature())
-            await OPCServerUA.setVoltage(dataManager.getLastVoltage())
+            mode = await OPCServerUA.getMode()
 
-            # Checks if client update controller values.
-            if (await OPCServerUA.controllerChange()):
+            if (dataManager.getMode() != mode):
+                    dataManager.setMode()
+            
+            if (mode == 'A'):
                 controller = await OPCServerUA.getController()
+                
+                dataManager.setSetPoint(await OPCServerUA.getSetPoint())
                 dataManager.setController(controller[0], controller[1])
-                await OPCServerUA.updatePreviousController()
 
-async def thDataAcquisition():
-    global dataManager
-    dataManager = dataAcquisition()
-    
-    while (flag):
-        await asyncio.sleep(1)
-        dataManager.readData()
+                await OPCServerUA.setVoltage(dataManager.getVoltage())
+            elif (mode == 'M'):
+                dataManager.setSetPoint(await OPCServerUA.getVoltage())
 
-    dataManager.close()
-
-flag = 1
-
-threadDataAquisition = threading.Thread(target = thDataAcquisition, args = ())
-threadOPCServer = threading.Thread(target = thOPCServer, args = ())
-
-threadDataAquisition.start()
-threadOPCServer.start()
-
-keyboardInput = ''
-while (keyboardInput != 'exit'):
-    keyboardInput = input('To stop the program, type exit')
-# Break thread's loap
-flag = 0
+            cls()
+            OPCServerUA.print()
+            print("")
+            dataManager.print()
+            
+                
