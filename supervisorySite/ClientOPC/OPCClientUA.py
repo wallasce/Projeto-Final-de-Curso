@@ -88,6 +88,11 @@ class OPCClientUA:
         voltageVar = await self.client.nodes.root.get_child(
             ["0:Objects", f"{self.nsidx}:Box", f"{self.nsidx}:Voltage"]
         )
+
+        if (voltage > 12):
+            voltage = 12.0
+        elif (voltage < -12):
+            voltage = -12.0
         await voltageVar.write_value(voltage)
 
     # The table in Server Database follows this standard <namespaceID>_<varID>
