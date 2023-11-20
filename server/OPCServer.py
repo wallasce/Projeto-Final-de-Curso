@@ -7,7 +7,7 @@ from FormaterData import formaterData
 # Method to do a query in a dump with history data.
 @uamethod
 def getHistoryData(parent, table : str) -> dict:
-    sqlConnection = SQLiteManager('temperature_history.sql')
+    sqlConnection = SQLiteManager('history_data.sql')
     answer = sqlConnection.selectDataFrom(table)
     sqlConnection.stopConnection()
 
@@ -24,7 +24,7 @@ class OPCServer:
 
     def __init__(self) -> None:
         self.server = Server()
-        self.server.iserver.history_manager.set_storage(HistorySQLite("temperature_history.sql"))
+        self.server.iserver.history_manager.set_storage(HistorySQLite("history_data.sql"))
         
         # Default value from Arduino
         self.previousKi = 4.5
@@ -37,7 +37,7 @@ class OPCServer:
         await self.server.init()
         self.server.set_endpoint(self.endpoint)
         
-        sqlConnection = SQLiteManager('temperature_history.sql')
+        sqlConnection = SQLiteManager('history_data.sql')
         sqlConnection.clearData()
 
         # Setup Namespace
