@@ -22,7 +22,7 @@ opcua-asyncio
 ## WebSite que contém o ClienteOPC basta:
     
     1 - Ativar o Ambiente Virtual:
-        supervisory\Scripts\activate.bat
+        venv\Scripts\activate.bat
 
     2 - Entrar na supervisorySite:
         cd supervisorySite
