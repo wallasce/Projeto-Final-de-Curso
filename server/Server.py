@@ -1,7 +1,7 @@
 import asyncio
 import os
 
-from dataAcquisitionFinal import dataAcquisition
+from dataAcquisition import dataAcquisition
 from OPCServer import OPCServer
 
 def cls():
