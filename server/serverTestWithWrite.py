@@ -30,15 +30,13 @@ async def main():
             cls()
             await OPCServerUA.print()
             
-            count += 1
-            
             temperature = temperature + 1 if (temperatureUp) else temperature - 1
-
             if temperature == 100:
                 temperatureUp = False
             elif temperature == 0:
                 temperatureUp = True
 
+            count += 1
             if (count == 601):
                 return 0
 
